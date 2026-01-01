@@ -1,26 +1,161 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 240 10% 97%;
+  /* #f6f6f8 */
+  --foreground: 240 6% 10%;
+  /* #18181b */
+
+  --card: 0 0% 100%;
+  --card-foreground: 240 6% 10%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 6% 10%;
+
+  --primary: 242 83% 59%;
+  /* #4c46ec */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 240 5% 90%;
+  /* #e4e4e7 */
+  --secondary-foreground: 240 6% 10%;
+
+  --muted: 240 5% 96%;
+  /* #f4f4f5 */
+  --muted-foreground: 240 4% 46%;
+  /* #71717a */
+
+  --accent: 240 5% 96%;
+  --accent-foreground: 240 6% 10%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 240 5% 90%;
+  /* #e4e4e7 */
+  --input: 240 5% 90%;
+  --ring: 242 83% 59%;
+
+  --radius: 0.5rem;
+
+  /* Custom Design Tokens (HSL) */
+  --color-background-light: 240 10% 97%;
+  --color-background-dark: 240 32% 10%;
+  --color-border-dark: 240 18% 19%;
+  --color-card-dark: 240 28% 14%;
+}
+
+.dark {
+  --background: 240 32% 10%;
+  /* #111121 */
+  --foreground: 0 0% 98%;
+
+  --card: 240 28% 14%;
+  /* #1a1a2e */
+  --card-foreground: 0 0% 98%;
+
+  --popover: 240 28% 14%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 242 83% 59%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 240 4% 16%;
+  /* #27272a */
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 65%;
+  /* #a1a1aa */
+
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 240 18% 19%;
+  /* #272738 */
+  --input: 240 18% 19%;
+  --ring: 242 83% 59%;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Custom Design Mappings */
+  --color-background-light: hsl(var(--color-background-light));
+  --color-background-dark: hsl(var(--color-background-dark));
+  --color-border-dark: hsl(var(--color-border-dark));
+  --color-card-dark: hsl(var(--color-card-dark));
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-display), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .dashed-circle {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA8NrGS5A9IjQ4mqjw--gmmEMtzztiNv3CLWbkgU5uBacmti3ZSXRknLj1MOS7lY9sP2pQe2Qz5i6JdAyT2B43wfo8OYMtgYYVBNbc_oZaNLAZcE9P2SAuzei3HbSJjazXrw3KKvFuCQNj-xjqMhMe39xkbxLW9Qb6MH8-6Q3crFHHsRfGqLFZxSVL30hR-bNg-dUWhbsJxaq56ahPszL1VZgyPhi4NaEXYmaFLavjud3GKa-sBn0tl1Gk-78D4osK-BiPsXroZ0g);
+  }
+
+  .dark .dashed-circle {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAAcsI8XH3zJgXzcY6798VjF5rAT4ceJKagukM-SHny_Dq8wxspdtxg8iTN-P8OJPJeXcEnOOFlxTI8JA6wJ0wZaTvqdwpxXzmEw4Cl0IqVXIi8SAIsfLq2ACuiNPuAcpnGVItqYAB2MfWqs7FrXAd8tsH3ua_L09kRhqDWEuTEG85PHburpOWTi3k9KO_lFSzGC4hOO1DnU4ZJ3N_aXE0-7AQ2hk9tuId5zipKe82CnndLzEBnnOYTv3MwS2LF_3DFIBCogZfDgw);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
