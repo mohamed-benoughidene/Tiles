@@ -3,13 +3,25 @@
 import { ReactNode } from "react";
 import { ProfileSection } from "./ProfileSection";
 import { TilesSection } from "./TilesSection";
+import { BentoGrid } from "./BentoGrid";
+import { Tile, TileSize } from "@/types/tiles";
+
+import { Layout } from 'react-grid-layout';
 
 interface CanvasProps {
     viewMode: "desktop" | "mobile";
     children?: ReactNode;
+    tiles: Tile[];
+    selectedTileId: string | null;
+    onSelectTile: (id: string) => void;
+    layouts: { lg: Layout[], md: Layout[], sm: Layout[] };
+    onLayoutChange: (currentLayout: Layout[], allLayouts: { lg: Layout[], md: Layout[], sm: Layout[] }) => void;
+    onReorder: (oldIndex: number, newIndex: number) => void;
+    onResize: (id: string, size: TileSize) => void;
+    onDelete: (id: string) => void;
 }
 
-export function Canvas({ viewMode, children }: CanvasProps) {
+export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile, layouts, onLayoutChange, onReorder, onResize, onDelete }: CanvasProps) {
     return (
         <section className={`w-full h-[100vh] bg-zinc-50 dark:bg-black relative flex flex-col items-center overflow-hidden transition-all duration-300 ${viewMode === "mobile" ? "py-8" : ""}`}>
             {/* Background Pattern */}
@@ -26,7 +38,16 @@ export function Canvas({ viewMode, children }: CanvasProps) {
                     {/* Content Wrapper for Mobile Mode to ensure padding inside phone frame */}
                     <div className={`${viewMode === "mobile" ? "p-6 min-h-full bg-zinc-50 dark:bg-black flex flex-col" : "contents"}`}>
                         <ProfileSection viewMode={viewMode} />
-                        <TilesSection viewMode={viewMode} />
+                        <BentoGrid
+                            tiles={tiles}
+                            selectedTileId={selectedTileId}
+                            onSelectTile={onSelectTile}
+                            layouts={layouts}
+                            onLayoutChange={onLayoutChange}
+                            onReorder={onReorder}
+                            onResize={onResize}
+                            onDelete={onDelete}
+                        />
                     </div>
 
                 </div>
