@@ -1,4 +1,4 @@
-import { GridConfig } from './gridConfig';
+import { GRID_CONFIG } from './gridConfig';
 import { DragEndEvent } from '@dnd-kit/core';
 import { TilePosition } from '@/types/tiles';
 
@@ -6,7 +6,7 @@ export const calculateGridPosition = (
     deltaX: number,
     deltaY: number,
     currentPosition: TilePosition,
-    gridConfig: typeof GridConfig
+    gridConfig: { cellWidth: number; cellHeight: number; gap: number }
 ): TilePosition => {
     const colDelta = Math.round(deltaX / (gridConfig.cellWidth + gridConfig.gap));
     const rowDelta = Math.round(deltaY / (gridConfig.cellHeight + gridConfig.gap));
@@ -20,7 +20,7 @@ export const calculateGridPosition = (
 export const snapToGrid = (
     x: number,
     y: number,
-    gridConfig: typeof GridConfig
+    gridConfig: { cellWidth: number; cellHeight: number; gap: number }
 ) => {
     // This might be needed if we were doing custom drag overlay positioning
     // For now, we rely on CSS grid for placement, and just need to calculate the target cell

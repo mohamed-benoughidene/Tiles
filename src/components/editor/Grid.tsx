@@ -20,9 +20,11 @@ interface GridProps {
     selectedTileId: string | null;
     onSelectTile: (id: string) => void;
     onTileMove: (id: string, position: { row: number, col: number }) => void;
+    onResize?: (id: string, size: any) => void;
+    onDelete?: (id: string) => void;
 }
 
-export function Grid({ tiles, selectedTileId, onSelectTile, onTileMove }: GridProps) {
+export function Grid({ tiles, selectedTileId, onSelectTile, onTileMove, onResize, onDelete }: GridProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [cellSize, setCellSize] = useState({ width: 0, height: 0 });
 
@@ -67,7 +69,7 @@ export function Grid({ tiles, selectedTileId, onSelectTile, onTileMove }: GridPr
                 delta.x,
                 delta.y,
                 tile.position,
-                { width: cellSize.width, height: cellSize.height, gap: GRID_CONFIG.gap }
+                { cellWidth: cellSize.width, cellHeight: cellSize.height, gap: GRID_CONFIG.gap }
             );
 
             onTileMove(tileId, newPosition);
@@ -105,6 +107,8 @@ export function Grid({ tiles, selectedTileId, onSelectTile, onTileMove }: GridPr
                         tile={tile}
                         isSelected={selectedTileId === tile.id}
                         onSelect={onSelectTile}
+                        onResize={onResize}
+                        onDelete={onDelete}
                     />
                 ))}
             </div>

@@ -1,25 +1,10 @@
 import { useState, useCallback } from 'react';
 import { Tile, TileSize } from '@/types/tiles';
 import { TILE_SIZES, DEFAULT_TILE_SIZE } from '@/lib/tileConstants';
-
-// Define local interface to avoid conflicts if Layout is array or mismatched
-interface RGLLayoutItem {
-    i: string;
-    x: number;
-    y: number;
-    w: number;
-    h: number;
-    minW?: number;
-    maxW?: number;
-    minH?: number;
-    maxH?: number;
-    static?: boolean;
-    isDraggable?: boolean;
-    isResizable?: boolean;
-}
+import { Layout } from 'react-grid-layout';
 
 // Helper to generate a new layout item
-const createLayoutItem = (id: string, size: TileSize, x: number = 0, y: number = Infinity): RGLLayoutItem => ({
+const createLayoutItem = (id: string, size: TileSize, x: number = 0, y: number = Infinity): any => ({
     i: id,
     x,
     y, // Put at bottom by default
@@ -111,7 +96,7 @@ export function useBentoGridState(initialTiles: Tile[] = []) {
     const effectiveInitialTiles = initialTiles.length > 0 ? initialTiles : STARTER_TILES;
     const [tiles, setTiles] = useState<Tile[]>(effectiveInitialTiles);
     const [selectedTileId, setSelectedTileId] = useState<string | null>(null);
-    const [layouts, setLayouts] = useState<{ lg: RGLLayoutItem[], md: RGLLayoutItem[], sm: RGLLayoutItem[] }>({
+    const [layouts, setLayouts] = useState<{ lg: any[], md: any[], sm: any[] }>({
         lg: effectiveInitialTiles.map((t) => createLayoutItem(t.id, t.size, t.position.col, t.position.row)),
         md: effectiveInitialTiles.map((t) => createLayoutItem(t.id, t.size, t.position.col, t.position.row)),
         sm: effectiveInitialTiles.map((t) => createLayoutItem(t.id, t.size, t.position.col, t.position.row))

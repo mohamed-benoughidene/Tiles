@@ -1,15 +1,18 @@
 'use client';
 
-import { Tile as TileType } from '@/types/tiles';
+import { Tile as TileType, TileSize } from '@/types/tiles';
 import { useDraggable } from '@dnd-kit/core';
+import { BentoTile } from './BentoTile';
 
 interface TileProps {
     tile: TileType;
     isSelected: boolean;
     onSelect: (id: string) => void;
+    onResize?: (id: string, size: TileSize) => void;
+    onDelete?: (id: string) => void;
 }
 
-export function Tile({ tile, isSelected, onSelect }: TileProps) {
+export function Tile({ tile, isSelected, onSelect, onResize, onDelete }: TileProps) {
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
         id: tile.id,
         data: tile,
@@ -25,33 +28,29 @@ export function Tile({ tile, isSelected, onSelect }: TileProps) {
             ref={setNodeRef}
             style={{
                 ...style,
-                gridColumn: `${tile.position.col} / span ${tile.size.width}`,
-                gridRow: `${tile.position.row} / span ${tile.size.height}`,
+                gridColumn: `${tile.position.col + 1} / span ${tile.size.width}`, // +1 because grid lines are 1-based
+                gridRow: `${tile.position.row + 1} / span ${tile.size.height}`,
             }}
             className={`
-        relative rounded-3xl transition-shadow duration-200 cursor-grab active:cursor-grabbing group
-        ${isSelected
-                    ? 'ring-4 ring-indigo-500/20 border-2 border-indigo-500 shadow-xl z-20'
-                    : 'border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md z-10 bg-white dark:bg-zinc-900'}
-        ${isDragging ? 'opacity-50 shadow-2xl' : ''}
+        relative rounded-[2rem] transition-all duration-200 
+        ${isSelected ? 'z-30' : 'z-10 hover:z-[60]'}
+        ${isDragging ? 'opacity-50 shadow-2xl z-50' : ''}
       `}
             onClick={(e) => {
                 if (!isDragging) {
-                    e.stopPropagation();
                     onSelect(tile.id);
                 }
             }}
             {...listeners}
             {...attributes}
         >
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-zinc-400 text-xs font-mono p-2 pointer-events-none">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity">{tile.size.name}</div>
-                {tile.content?.text && (
-                    <div className="mt-2 text-zinc-800 dark:text-zinc-200 font-bold opacity-100">
-                        {tile.content.text}
-                    </div>
-                )}
-            </div>
+            <BentoTile
+                tile={tile}
+                isSelected={isSelected}
+                onSelect={onSelect}
+                onResize={onResize}
+                onDelete={onDelete}
+            />
         </div>
     );
 }

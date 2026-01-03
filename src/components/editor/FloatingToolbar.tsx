@@ -1,3 +1,4 @@
+
 import { TileSize, TileSizeName } from "@/types/tiles";
 import { TILE_SIZES } from "@/lib/tileConstants";
 
@@ -19,7 +20,7 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
 
                 {/* Core Tools */}
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['1x1'])}
+                    onClick={() => onAddTile(TILE_SIZES['4x2'])}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Link Button"
                 >
