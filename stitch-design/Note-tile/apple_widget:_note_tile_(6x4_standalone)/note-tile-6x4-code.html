@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Note Tile Widget Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111122",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232348;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #34345a;
+        }
+        
+        /* Dot grid pattern for the canvas */
+        .bg-grid-pattern {
+            background-image: radial-gradient(#232348 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display">
+<div class="relative flex h-screen w-full overflow-hidden">
+<!-- Side Navigation -->
+<aside class="hidden lg:flex flex-col w-72 h-full border-r border-[#232348] bg-[#111122]">
+<div class="flex flex-col h-full p-4 justify-between">
+<div class="flex flex-col gap-6">
+<!-- User Profile Summary -->
+<div class="flex items-center gap-3 px-2 py-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 ring-2 ring-[#232348]" data-alt="User profile avatar with abstract gradient" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAX_p4PkTTKmvJZRygz880EYuRNwGbis2tYg9jWCk8M7aj1R0li_IASB0Ar1wg4miEnCECJG_F6ZJJt_LlXk_2lgCMBDVwxtzAEJG19LKgDcQ6NTpm5X46MEX93h5QxcQuwZBvb3MjZXGKVqpwJCH7ZFB3mbSpuHvJfEmaEgIZwJdiLWmA7H5vIp78UQ_jldw_wlVRdOy4bc6VCdFZD6TD5yptpBT4qGX_q97jrIJfZNyLEtzAKUgtc2zmLS3dJv8NFO37lJEe04g");'>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-tight">Alex Designer</h1>
+<p class="text-[#9292c9] text-xs font-medium">Pro Workspace</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#9292c9] hover:bg-[#191933] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#9292c9] hover:bg-[#191933] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">smartphone</span>
+<span class="text-sm font-medium">My Page</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(19,19,236,0.1)]" href="#">
+<span class="material-symbols-outlined text-2xl fill-1">grid_view</span>
+<span class="text-sm font-bold">Widgets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#9292c9] hover:bg-[#191933] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#9292c9] hover:bg-[#191933] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="px-4 py-4 border-t border-[#232348]">
+<button class="flex items-center gap-3 text-[#9292c9] hover:text-white transition-colors w-full">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Sign Out</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden bg-[#0c0c17]">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between h-16 px-6 lg:px-10 border-b border-[#232348] bg-[#111122] shrink-0 z-20">
+<div class="flex items-center gap-4 text-white">
+<div class="lg:hidden p-2 -ml-2 mr-2">
+<span class="material-symbols-outlined">menu</span>
+</div>
+<div class="size-8 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-lg">layers</span>
+</div>
+<h2 class="text-white text-lg font-bold tracking-tight">LinkBio Studio</h2>
+</div>
+<div class="flex items-center gap-6">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-[#232348] text-[#9292c9] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-[1px] bg-[#232348]"></div>
+<button class="px-4 py-2 bg-primary hover:bg-primary/90 text-white text-sm font-semibold rounded-lg shadow-lg shadow-primary/30 transition-all active:scale-95">
+                    Publish Changes
+                </button>
+</div>
+</header>
+<!-- Scrollable Area -->
+<main class="flex-1 overflow-y-auto overflow-x-hidden relative">
+<div class="w-full max-w-[1200px] mx-auto p-6 lg:p-10 flex flex-col gap-8">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-sm">
+<a class="text-[#9292c9] hover:text-white transition-colors" href="#">Home</a>
+<span class="text-[#555577] material-symbols-outlined text-base">chevron_right</span>
+<a class="text-[#9292c9] hover:text-white transition-colors" href="#">Widgets</a>
+<span class="text-[#555577] material-symbols-outlined text-base">chevron_right</span>
+<span class="text-white font-medium">Note Tile (6x4)</span>
+</nav>
+<!-- Page Heading -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2 border-b border-[#232348]">
+<div class="flex flex-col gap-2">
+<h1 class="text-white text-3xl md:text-4xl font-black tracking-tight">Note Tile Widget</h1>
+<p class="text-[#9292c9] text-base max-w-2xl">
+                            Preview of your 6x4 standalone home screen widget configuration. This layout is optimized for high-density information display on iOS.
+                        </p>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[#9292c9] text-sm">Preview Mode:</span>
+<div class="flex bg-[#191933] p-1 rounded-lg border border-[#232348]">
+<button class="px-3 py-1 bg-[#2d2d4d] text-white rounded text-xs font-medium shadow-sm">Dark</button>
+<button class="px-3 py-1 text-[#9292c9] hover:text-white rounded text-xs font-medium transition-colors">Light</button>
+</div>
+</div>
+</div>
+<!-- Widget Presentation Canvas -->
+<div class="w-full flex-1 min-h-[500px] rounded-3xl border border-[#232348] bg-[#111122] bg-grid-pattern relative overflow-hidden flex items-center justify-center p-8 lg:p-16 group/canvas">
+<!-- Decorative blurred glows behind widget -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/10 blur-[100px] rounded-full pointer-events-none"></div>
+<!-- THE WIDGET (6x4 Custom Size) -->
+<!-- Simulating a 6x4 grid ratio. Typically a large widget is square-ish, 6x4 is wider. Let's assume approx 1.5 aspect ratio. -->
+<div class="relative w-full max-w-[640px] aspect-[1.55] bg-[#1f1f22] rounded-[2.5rem] p-7 flex flex-col shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] ring-1 ring-white/10 overflow-hidden transform transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_30px_70px_-15px_rgba(19,19,236,0.15)] cursor-pointer group/widget">
+<!-- Widget Header -->
+<div class="flex items-start justify-between mb-5 z-10">
+<div class="flex items-center gap-4">
+<!-- Note Icon -->
+<div class="size-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+<span class="material-symbols-outlined text-white text-2xl drop-shadow-sm">description</span>
+</div>
+<div class="flex flex-col">
+<h3 class="text-white text-xl font-bold leading-tight tracking-tight">Brainstorming</h3>
+<span class="text-[#71717a] text-xs font-medium uppercase tracking-wider mt-0.5">Product Team • 2h ago</span>
+</div>
+</div>
+<!-- Tap Indicator (Top Right) -->
+<div class="size-8 rounded-full bg-[#27272a] flex items-center justify-center text-[#71717a] group-hover/widget:bg-primary group-hover/widget:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-lg">arrow_outward</span>
+</div>
+</div>
+<!-- Widget Body Content -->
+<div class="flex flex-1 flex-col justify-between z-10">
+<div class="flex flex-col gap-3">
+<h4 class="text-white text-2xl font-semibold leading-tight tracking-tight">New Product Features: Q3 Roadmap</h4>
+<p class="text-[#a1a1aa] text-base leading-relaxed line-clamp-3">
+                                    Focus on reducing friction in the onboarding flow. We need to integrate the new API keys by next Tuesday. Key priority is the mobile dashboard refresh.
+                                </p>
+</div>
+<!-- Bottom Section: List & Visual -->
+<div class="flex items-end justify-between gap-4 mt-4">
+<ul class="flex flex-col gap-2 w-full">
+<li class="flex items-center gap-3 text-[#e4e4e7] text-sm font-medium">
+<span class="material-symbols-outlined text-yellow-500 text-lg">check_circle</span>
+                                        Review Q3 Analytics Data
+                                    </li>
+<li class="flex items-center gap-3 text-[#e4e4e7] text-sm font-medium">
+<span class="material-symbols-outlined text-[#3f3f46] text-lg">radio_button_unchecked</span>
+                                        Finalize UI Mockups
+                                    </li>
+<li class="flex items-center gap-3 text-[#e4e4e7] text-sm font-medium">
+<span class="material-symbols-outlined text-[#3f3f46] text-lg">radio_button_unchecked</span>
+                                        Schedule Dev Huddle
+                                    </li>
+</ul>
+<!-- Embedded Media / Doodle -->
+<div class="shrink-0 relative group/image">
+<div class="w-28 h-20 rounded-xl bg-cover bg-center shadow-inner ring-1 ring-white/10 transition-transform group-hover/image:scale-105" data-alt="Abstract colorful wireframe doodle for product design" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6fVj9f00rW6AXuLMcI7WLsluboa95qqiyWvlz-6eL8BRkxa2NAjOlLeGAlMbPEc3KZjDk1460_3LPNDBUQfp9BTmfrVmWxBJs_CuzdJI_oCLYbW-URTkPNJatMf9fwjoalVGUrUVvfklLdibwKOhOug74-h3ZZGmDcKnbbw-zE5jEj35ajP9BBDWBr2NxP6T0pj-3P3w893euaDxwR67ggXeaSR9ntx50rP8xdKTwrd25KbcHhYzyysNCWdWH8b5bV7gAcfkiQA");'>
+<div class="absolute inset-0 bg-black/20 rounded-xl"></div>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-[#27272a] text-[10px] text-white px-2 py-0.5 rounded-full border border-[#3f3f46]">
+                                        Img
+                                    </div>
+</div>
+</div>
+</div>
+<!-- Gradient Overlay (Bottom) for aesthetic depth -->
+<div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/20 to-transparent pointer-events-none rounded-b-[2.5rem]"></div>
+</div>
+<!-- End Widget -->
+<!-- Grid Dimensions Label -->
+<div class="absolute bottom-6 right-6 px-4 py-2 bg-[#191933] border border-[#232348] rounded-full text-[#9292c9] text-xs font-mono shadow-xl backdrop-blur-md opacity-70">
+                        Size: 6x4 (Custom Wide)
+                    </div>
+</div>
+<!-- Properties / Config Panel (Visual Only) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Config Card 1 -->
+<div class="bg-[#191933] p-5 rounded-xl border border-[#232348] flex flex-col gap-3">
+<div class="flex items-center gap-2 text-white font-semibold">
+<span class="material-symbols-outlined text-primary">palette</span>
+<span>Theme Settings</span>
+</div>
+<div class="space-y-3 mt-1">
+<div class="flex items-center justify-between">
+<span class="text-[#9292c9] text-sm">Background</span>
+<div class="size-6 rounded-full bg-[#1f1f22] ring-1 ring-white/20 cursor-pointer"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[#9292c9] text-sm">Accent Color</span>
+<div class="size-6 rounded-full bg-yellow-500 ring-1 ring-white/20 cursor-pointer"></div>
+</div>
+</div>
+</div>
+<!-- Config Card 2 -->
+<div class="bg-[#191933] p-5 rounded-xl border border-[#232348] flex flex-col gap-3">
+<div class="flex items-center gap-2 text-white font-semibold">
+<span class="material-symbols-outlined text-primary">format_size</span>
+<span>Typography</span>
+</div>
+<div class="flex flex-col gap-2 mt-1">
+<div class="w-full h-2 bg-[#2d2d4d] rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-primary rounded-full"></div>
+</div>
+<div class="flex justify-between text-xs text-[#9292c9]">
+<span>Small</span>
+<span>Large</span>
+</div>
+</div>
+</div>
+<!-- Config Card 3 -->
+<div class="bg-[#191933] p-5 rounded-xl border border-[#232348] flex flex-col gap-3">
+<div class="flex items-center gap-2 text-white font-semibold">
+<span class="material-symbols-outlined text-primary">visibility</span>
+<span>Visibility</span>
+</div>
+<div class="flex items-center justify-between mt-1">
+<span class="text-[#9292c9] text-sm">Show Date</span>
+<div class="w-10 h-5 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 size-3 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[#9292c9] text-sm">Show Icon</span>
+<div class="w-10 h-5 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 size-3 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

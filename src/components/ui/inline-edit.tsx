@@ -12,6 +12,8 @@ interface InlineEditProps {
     placeholder?: string;
     description?: string; // For aria-label
     disabled?: boolean;
+    isEditing?: boolean;
+    onEditChange?: (isEditing: boolean) => void;
 }
 
 export function InlineEdit({
@@ -22,9 +24,24 @@ export function InlineEdit({
     placeholder = "Enter text...",
     description,
     disabled = false,
+    isEditing: controlledIsEditing,
+    onEditChange,
 }: InlineEditProps) {
-    const [isEditing, setIsEditing] = useState(false);
+    const [internalIsEditing, setInternalIsEditing] = useState(false);
+
+    // Determine effective state
+    const isEditing = controlledIsEditing !== undefined ? controlledIsEditing : internalIsEditing;
+
+    const setIsEditing = (newState: boolean) => {
+        if (onEditChange) {
+            onEditChange(newState);
+        } else {
+            setInternalIsEditing(newState);
+        }
+    };
+
     const [inputValue, setInputValue] = useState(value);
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     // Sync internal state if prop changes

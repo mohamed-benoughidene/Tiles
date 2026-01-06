@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Commerce Widget Designer - LinkBio SaaS</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1313ec",
+              "primary-dark": "#0f0fba",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101022",
+              "surface-dark": "#1c1c2e",
+              "widget-dark": "#27272a", // zinc-850
+              "widget-light": "#fafafa", // zinc-50
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "sans": ["Inter", "sans-serif"]
+            },
+            boxShadow: {
+                'widget': '0 4px 24px -1px rgba(0, 0, 0, 0.25)',
+                'glow': '0 0 20px -5px rgba(19, 19, 236, 0.3)'
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111122; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232348; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #34345a; 
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden selection:bg-primary selection:text-white">
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<aside class="w-64 flex-shrink-0 border-r border-[#232348] bg-[#111122] flex flex-col justify-between h-full p-4 hidden md:flex">
+<div class="flex flex-col gap-8">
+<!-- Branding -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shadow-glow" data-alt="Abstract blue gradient logo for SaaS app" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC23wmo4Ik6HzCPskvgG8ql0t0i1CsbZE4bkCwWLvBFAbE4Jpi33yNlusk8MakWuoAXMzx-qu7VKGKb1c58Dslyk5YXM0-EQSQrPhY-fsx4PtS3fp0Zjeq2cXUublQs58IafHTPjlA8-6JbaB6iHr0AQBxwdbHIxIVu4Te9wGMD37ayl-lH0eyof-Zw7dY8thU-iyH2vwwCgZg_l1lCmpm4PCeRo24SQsWH6hv4TnEDhJ_41ctR7z-rA56DPyvuX1JsIwkq9V4lxQ");'></div>
+<h1 class="text-white text-lg font-bold tracking-tight">LinkBio SaaS</h1>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white">home</span>
+<p class="text-sm font-medium">Overview</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white shadow-glow" href="#">
+<span class="material-symbols-outlined fill">widgets</span>
+<p class="text-sm font-medium">Widgets</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white">layers</span>
+<p class="text-sm font-medium">Pages</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white">bar_chart</span>
+<p class="text-sm font-medium">Analytics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+</nav>
+</div>
+<!-- User Profile (Bottom) -->
+<div class="flex items-center gap-3 px-3 py-3 mt-auto border-t border-[#232348]">
+<div class="size-8 rounded-full bg-slate-700 overflow-hidden" data-alt="User profile picture placeholder">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyfLUMYJFYb3jyp9luSfuimF5NfAq60B-BBQjmwtOATfULUnwrTdN28x1CBA7ScBPionnXL0qiLFqz5rS4MIbp8b-CT3yV4_dM5_eQYKQi-HRlzr8NtOnYD3ldyERLBcaCrQjXiyRSM0-KVG7WDXL05dKc4oP-W00fgOqPcuiHnDXHWhS6f_kvLmBw9KVaYMs2XYaxPDRJCY2fy6W23px83-Cl-NDvdiubPR_TGzQK3Y9nCnfRGRaXn70SZPqFmt8NE1_bQKqK_g"/>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-xs font-semibold">Alex Designer</p>
+<p class="text-slate-400 text-[10px]">Pro Plan</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- TopNavBar -->
+<header class="flex-shrink-0 flex items-center justify-between border-b border-[#232348] bg-[#111122]/90 backdrop-blur-md px-6 py-4 z-20">
+<div class="flex items-center gap-4 text-white">
+<button class="md:hidden text-slate-400 hover:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-slate-400 text-xs font-medium uppercase tracking-wider">Editor</span>
+<span class="text-slate-600 text-xs">/</span>
+<span class="text-primary text-xs font-medium uppercase tracking-wider">Commerce</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-tight mt-0.5">Commerce Widget Designer</h2>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-9 px-4 bg-[#232348] hover:bg-[#2f2f5e] text-white text-sm font-semibold transition-colors border border-white/5">
+<span>Save Draft</span>
+</button>
+<button class="flex items-center gap-2 justify-center rounded-lg h-9 px-4 bg-primary hover:bg-primary-dark text-white text-sm font-semibold shadow-glow transition-all">
+<span class="material-symbols-outlined text-[18px]">publish</span>
+<span>Publish</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto bg-[#0c0c18] relative">
+<!-- Background Pattern -->
+<div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#4f4f4f 1px, transparent 1px), linear-gradient(90deg, #4f4f4f 1px, transparent 1px); background-size: 24px 24px;">
+</div>
+<div class="max-w-6xl mx-auto p-6 md:p-10 relative z-10">
+<!-- Page Heading & Context -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h1 class="text-white text-3xl font-black tracking-tight mb-2">Commerce Tile Preview (4x2)</h1>
+<p class="text-[#9292c9] text-base max-w-xl">Configure your standalone iOS commerce widget. This 4x2 medium widget layout is optimized for high-conversion product placement on the home screen.</p>
+</div>
+<div class="flex items-center gap-2 bg-[#19192e] p-1 rounded-lg border border-[#232348]">
+<button class="px-3 py-1.5 rounded bg-[#232348] text-white text-xs font-medium shadow-sm">Desktop</button>
+<button class="px-3 py-1.5 rounded text-slate-400 hover:text-white hover:bg-white/5 text-xs font-medium transition-colors">Mobile</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: The Canvas (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Canvas Container -->
+<div class="w-full bg-[#111122] border border-[#232348] rounded-2xl p-12 min-h-[500px] flex items-center justify-center relative overflow-hidden group/canvas">
+<!-- iOS Wallpaper Simulation (Blurred) -->
+<div class="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none" style="background: radial-gradient(circle at 50% 50%, #2a2a5a 0%, #111122 70%);"></div>
+<!-- THE WIDGET -->
+<!-- 4x2 Size Ratio: Approx 330x158 in points, scaling up for display -->
+<div class="relative w-[360px] h-[170px] bg-widget-dark rounded-[24px] shadow-widget ring-1 ring-white/10 flex overflow-hidden transform transition-transform hover:scale-[1.02] cursor-default select-none">
+<!-- Left: Product Image -->
+<div class="h-full w-[140px] relative bg-white">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Bag of premium coffee beans on a clean background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBprglI15uEJYQYBdnh53GFxGG_MkRJYGnDfYoBLvDV7r1mMHVPdLAk7x_ls9uuwfuaM2gthHHfVrzjQFvvHWRVUsm-19HNwuDOh21EDbS-SvPSCEJtz7zdTA4QbVMIXivV469uhVi9AcaD39XITt_FgKcW_ZdZrrBtCNODVGVDgZmsC73x-3FaedRMkfTbgGgSVdBnCDXcpjvNVFIlYtIsiH5Us053X4XkP4ws89Qlb280UBP-v_ty7VMsyhrtgJjS54PeOUMtAA");'></div>
+<!-- Gradient overlay for text contrast if needed, subtle here -->
+<div class="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent"></div>
+</div>
+<!-- Right: Content -->
+<div class="flex-1 p-5 flex flex-col justify-between bg-gradient-to-br from-widget-dark to-[#1f1f22]">
+<!-- Header Text -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1.5 mb-0.5">
+<div class="size-4 rounded bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white">storefront</span>
+</div>
+<span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">New Arrival</span>
+</div>
+<h3 class="text-white text-[17px] font-bold leading-tight line-clamp-2">Signature Blend Coffee</h3>
+<p class="text-slate-400 text-xs font-medium leading-normal line-clamp-1">Ethically sourced, medium roast</p>
+</div>
+<!-- Footer: Price & Action -->
+<div class="flex items-center justify-between mt-2">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 font-medium">Price</span>
+<span class="text-white text-lg font-bold tracking-tight">$18.00</span>
+</div>
+<!-- iOS Style Action Button -->
+<button class="size-9 rounded-full bg-[#3a3a3c] hover:bg-[#4a4a4c] flex items-center justify-center transition-colors group/btn">
+<span class="material-symbols-outlined text-white text-[18px] group-hover/btn:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Micro-border (Simulating device light reflection) -->
+<div class="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/10 pointer-events-none"></div>
+</div>
+<!-- End Widget -->
+<!-- Canvas Label -->
+<div class="absolute bottom-4 left-0 w-full text-center">
+<p class="text-slate-500 text-xs font-mono">iOS Home Screen (Dark Mode)</p>
+</div>
+</div>
+<!-- Data Source Info -->
+<div class="bg-[#19192e] border border-[#232348] rounded-xl p-6 flex items-start gap-4">
+<div class="p-3 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<div>
+<h4 class="text-white font-semibold text-sm">Live Data Connection</h4>
+<p class="text-slate-400 text-sm mt-1">This widget is connected to your <span class="text-white font-medium">Shopify Store Inventory</span>. Updates to price or availability will reflect on the user's home screen within 15 minutes.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Settings (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Settings Card -->
+<div class="bg-[#111122] border border-[#232348] rounded-xl overflow-hidden shadow-lg">
+<div class="p-4 border-b border-[#232348]">
+<h2 class="text-white text-base font-bold">Appearance &amp; Data</h2>
+</div>
+<div class="p-5 flex flex-col gap-6">
+<!-- Theme Toggle -->
+<div class="flex flex-col gap-2">
+<label class="text-slate-400 text-xs font-bold uppercase tracking-wider">Theme Preview</label>
+<div class="grid grid-cols-2 gap-2 bg-[#0c0c18] p-1 rounded-lg">
+<button class="flex items-center justify-center gap-2 py-2 rounded bg-[#232348] text-white text-sm font-medium shadow-sm border border-white/5">
+<span class="material-symbols-outlined text-[16px]">dark_mode</span>
+                                                Dark
+                                            </button>
+<button class="flex items-center justify-center gap-2 py-2 rounded text-slate-400 hover:text-white text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[16px]">light_mode</span>
+                                                Light
+                                            </button>
+</div>
+</div>
+<!-- Content Fields -->
+<div class="flex flex-col gap-4">
+<label class="text-slate-400 text-xs font-bold uppercase tracking-wider">Content</label>
+<div class="flex flex-col gap-1.5">
+<span class="text-white text-sm font-medium">Product</span>
+<div class="relative">
+<select class="w-full bg-[#19192e] border border-[#34345a] text-white text-sm rounded-lg py-2.5 pl-3 pr-10 appearance-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>Signature Blend Coffee</option>
+<option>Ceramic Pour-Over Set</option>
+<option>Travel Tumbler</option>
+</select>
+<div class="absolute right-3 top-2.5 pointer-events-none text-slate-400">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<span class="text-white text-sm font-medium">Display Price</span>
+<input class="w-full bg-[#19192e] border border-[#34345a] text-white text-sm rounded-lg py-2.5 px-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" type="text" value="$18.00"/>
+</div>
+<div class="flex items-center justify-between py-2">
+<span class="text-white text-sm font-medium">Show Subtitle</span>
+<div class="w-10 h-6 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 size-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+<!-- Background Style -->
+<div class="flex flex-col gap-3 pt-4 border-t border-[#232348]">
+<label class="text-slate-400 text-xs font-bold uppercase tracking-wider">Widget Background</label>
+<div class="flex gap-3">
+<button class="size-8 rounded-full bg-[#27272a] ring-2 ring-primary ring-offset-2 ring-offset-[#111122]"></button>
+<button class="size-8 rounded-full bg-[#191919] ring-1 ring-white/10 hover:ring-white/30 transition-all"></button>
+<button class="size-8 rounded-full bg-gradient-to-br from-[#1e1e24] to-[#111111] ring-1 ring-white/10 hover:ring-white/30 transition-all"></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Export Card -->
+<div class="bg-[#111122] border border-[#232348] rounded-xl overflow-hidden">
+<div class="p-4 border-b border-[#232348] flex justify-between items-center">
+<h2 class="text-white text-sm font-bold">SwiftUI Code</h2>
+<button class="text-primary text-xs font-bold hover:text-primary-dark">COPY</button>
+</div>
+<div class="p-4 bg-[#0c0c18] font-mono text-xs text-slate-400 overflow-x-auto">
+<pre><code>WidgetPreview(family: .systemMedium) {
+  CommerceTile(
+    product: "Signature Blend",
+    price: 18.00,
+    image: .coffeeBag
+  )
+  .background(Color(uiColor: .systemGray6))
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

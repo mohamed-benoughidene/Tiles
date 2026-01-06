@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apple Widget: Pricing Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1313ec",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101022",
+              "ios-dark": "#1c1c1e", // Custom iOS widget background
+              "ios-light": "#ffffff", // Custom iOS widget background
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px"},
+            boxShadow: {
+                "ios": "0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 0 10px -2px rgba(0, 0, 0, 0.1)",
+                "glow": "0 0 60px -15px rgba(19, 19, 236, 0.3)"
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display antialiased overflow-hidden selection:bg-primary/30 selection:text-white relative">
+<!-- Decorative background elements for presentation context -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#232348]/20 rounded-full blur-[100px]"></div>
+</div>
+<!-- Main Presentation Area -->
+<main class="relative z-10 flex flex-1 flex-col items-center justify-center p-8">
+<div class="flex flex-col items-center gap-12">
+<!-- Context Label -->
+<div class="flex flex-col items-center gap-2 text-center opacity-80">
+<h1 class="text-zinc-900 dark:text-white text-lg font-medium tracking-tight">iOS Home Screen Widget</h1>
+<p class="text-zinc-500 dark:text-zinc-400 text-sm">4x4 Large Size • Pricing Menu</p>
+</div>
+<!-- THE WIDGET -->
+<!-- Dimensions: ~340px represents a large widget on typical desktop view scaling -->
+<div class="group relative w-[342px] h-[342px] transition-transform duration-500 hover:scale-[1.02] cursor-pointer">
+<!-- Widget Container -->
+<!-- Uses 'ios-dark' (dark gray) and rounded-xl (which is 1.5rem/24px approx iOS curvature) -->
+<!-- We override rounded-xl to 2xl here to match the 22px+ Apple look more closely if needed, but sticking to config mostly -->
+<div class="relative w-full h-full bg-ios-light dark:bg-ios-dark rounded-[1.75rem] shadow-ios overflow-hidden flex flex-col border border-zinc-200/50 dark:border-white/10">
+<!-- Widget Header -->
+<div class="px-5 pt-5 pb-2 flex justify-between items-start shrink-0">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-2">
+<h2 class="text-zinc-900 dark:text-white text-xl font-bold tracking-tight leading-tight">Full Menu</h2>
+</div>
+<span class="text-zinc-400 dark:text-zinc-500 text-xs font-medium">Updated today 9:41 AM</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="restaurant_menu">restaurant_menu</span>
+</div>
+</div>
+<!-- Widget Content: Condensed Menu List -->
+<div class="flex-1 flex flex-col px-5 py-2 overflow-hidden gap-4">
+<!-- Section 1: Drinks -->
+<div class="flex flex-col gap-0">
+<h3 class="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-2">Hot Drinks</h3>
+<!-- Condensed Item 1 -->
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-100 dark:border-white/5 last:border-0 group/item">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700 group-hover/item:bg-primary transition-colors"></span>
+<span class="text-sm text-zinc-700 dark:text-zinc-200 font-medium truncate">Latte</span>
+</div>
+<span class="text-sm text-zinc-900 dark:text-white font-semibold">$4.50</span>
+</div>
+<!-- Condensed Item 2 -->
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-100 dark:border-white/5 last:border-0 group/item">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700 group-hover/item:bg-primary transition-colors"></span>
+<span class="text-sm text-zinc-700 dark:text-zinc-200 font-medium truncate">Cappuccino</span>
+</div>
+<span class="text-sm text-zinc-900 dark:text-white font-semibold">$4.00</span>
+</div>
+<!-- Condensed Item 3 -->
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-100 dark:border-white/5 last:border-0 group/item">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700 group-hover/item:bg-primary transition-colors"></span>
+<span class="text-sm text-zinc-700 dark:text-zinc-200 font-medium truncate">Espresso</span>
+</div>
+<span class="text-sm text-zinc-900 dark:text-white font-semibold">$3.00</span>
+</div>
+</div>
+<!-- Section 2: Bakery -->
+<div class="flex flex-col gap-0">
+<h3 class="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-2">Bakery</h3>
+<!-- Condensed Item 4 -->
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-100 dark:border-white/5 last:border-0 group/item">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700 group-hover/item:bg-primary transition-colors"></span>
+<span class="text-sm text-zinc-700 dark:text-zinc-200 font-medium truncate">Croissant</span>
+</div>
+<span class="text-sm text-zinc-900 dark:text-white font-semibold">$3.50</span>
+</div>
+<!-- Condensed Item 5 -->
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-100 dark:border-white/5 last:border-0 group/item">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700 group-hover/item:bg-primary transition-colors"></span>
+<span class="text-sm text-zinc-700 dark:text-zinc-200 font-medium truncate">Blueberry Muffin</span>
+</div>
+<span class="text-sm text-zinc-900 dark:text-white font-semibold">$3.00</span>
+</div>
+</div>
+</div>
+<!-- Footer / Interaction Hint -->
+<!-- Background gradient to ensure text readability if list is long -->
+<div class="relative mt-auto px-5 py-4 bg-gradient-to-t from-zinc-50 via-zinc-50 to-transparent dark:from-[#1c1c1e] dark:via-[#1c1c1e] dark:to-transparent pt-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-[10px] font-semibold text-primary uppercase tracking-wider">Open Now</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 dark:text-zinc-500 text-[18px]" data-icon="arrow_circle_right">arrow_circle_right</span>
+</div>
+</div>
+</div>
+<!-- Reflection Glare (Simulating glass surface) -->
+<div class="absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none z-20 opacity-50"></div>
+</div>
+</div>
+</main>
+</body></html>

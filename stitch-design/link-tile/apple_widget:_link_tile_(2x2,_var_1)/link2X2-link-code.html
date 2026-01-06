@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apple Widget: Link Tile (2x2, Var 1) Refined</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        "zinc-850": "#202023", // Custom widget dark bg
+                        "zinc-900": "#18181b", 
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        'widget': '1.35rem', // Tuned for iOS small widget curvature
+                    },
+                    boxShadow: {
+                        'widget': '0 0 0 1px rgba(255,255,255,0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.4)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #09090b;display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body>
+<div class="group relative flex h-[170px] w-[170px] cursor-pointer flex-col overflow-hidden rounded-widget bg-zinc-850 shadow-widget transition-all duration-300 hover:scale-[1.02]">
+<div class="absolute right-4 top-4 flex items-center justify-center text-zinc-500 transition-colors duration-300 group-hover:text-white">
+<span class="material-symbols-outlined text-[20px]">arrow_outward</span>
+</div>
+<div class="flex flex-1 flex-col items-center justify-center px-4 text-center">
+<h2 class="text-xl font-bold leading-tight tracking-tight text-white antialiased">
+                Latest News
+            </h2>
+</div>
+</div>
+
+</body></html>

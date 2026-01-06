@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Commerce Widget Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "3xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                    aspectRatio: {
+                        'widget': '6 / 4',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar to ensure clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a40;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a3a55;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased selection:bg-primary/30 min-h-screen flex flex-col">
+<!-- Page Layout -->
+<div class="relative flex min-h-screen w-full flex-col overflow-hidden">
+<!-- Header / Navigation Area -->
+<header class="w-full border-b border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-[#111122]/50 backdrop-blur-md sticky top-0 z-50">
+<div class="px-6 py-4 flex items-center justify-between max-w-7xl mx-auto w-full">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</div>
+<span class="text-sm font-bold tracking-tight">WidgetKit</span>
+</div>
+<!-- Simple Theme Toggle Simulation (Visual Only) -->
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-slate-200 dark:bg-[#191933] rounded-full p-1 border border-slate-300 dark:border-slate-700">
+<button class="px-3 py-1 rounded-full text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Mobile</button>
+<button class="px-3 py-1 rounded-full bg-white dark:bg-[#2c2c4f] shadow-sm text-xs font-medium text-primary">Desktop</button>
+</div>
+<div class="h-8 w-8 rounded-full bg-slate-200 dark:bg-[#191933] flex items-center justify-center border border-slate-300 dark:border-slate-700">
+<span class="material-symbols-outlined text-[18px] text-slate-600 dark:text-slate-300">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center justify-center p-6 sm:p-12 relative">
+<!-- Background Decoration -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden">
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] opacity-40 mix-blend-screen"></div>
+<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] opacity-40 mix-blend-screen"></div>
+</div>
+<div class="w-full max-w-[960px] flex flex-col gap-12 z-10">
+<!-- Section Heading -->
+<div class="flex flex-col sm:flex-row justify-between items-end gap-6 border-b border-slate-200 dark:border-slate-800 pb-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-medium text-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">view_quilt</span>
+<span>Component Preview</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-black tracking-tight leading-tight">Commerce Tile (6x4)</h1>
+<p class="text-slate-500 dark:text-slate-400 max-w-lg">
+                            A high-fidelity iOS widget component designed for Link-in-Bio pages. Optimized for highlighting a single premium product with rich imagery and clear pricing.
+                        </p>
+</div>
+<!-- Mode Toggle -->
+<div class="flex h-10 items-center justify-center rounded-xl bg-slate-200 dark:bg-[#232348] p-1 shadow-inner">
+<button class="flex cursor-pointer h-full items-center justify-center rounded-lg px-3 text-slate-500 dark:text-white dark:bg-[#111122] dark:shadow-sm transition-all text-sm font-medium" onclick="document.documentElement.classList.add('dark')">
+<span class="material-symbols-outlined text-[16px] mr-1.5">dark_mode</span>
+<span>Dark</span>
+</button>
+<button class="flex cursor-pointer h-full items-center justify-center rounded-lg px-3 text-slate-900 bg-white shadow-sm dark:bg-transparent dark:text-slate-400 dark:shadow-none transition-all text-sm font-medium" onclick="document.documentElement.classList.remove('dark')">
+<span class="material-symbols-outlined text-[16px] mr-1.5">light_mode</span>
+<span>Light</span>
+</button>
+</div>
+</div>
+<!-- Preview Canvas -->
+<div class="flex justify-center items-center py-12 sm:py-20 rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-[#0c0c16]/50 backdrop-blur-sm shadow-xl relative overflow-hidden group/canvas">
+<!-- Grid Background Pattern -->
+<div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(#6b7280 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- WIDGET START -->
+<!-- Aspect Ratio: 6x4 (roughly 1.5:1). A typical large widget on iOS is approx 329x345 (2x2) or 329x155 (2x1). 6x4 implies a custom very large size, roughly 1.5 aspect ratio. We'll simulate a 600x400px box relative scale. -->
+<div class="relative w-full max-w-[540px] aspect-[6/4] bg-white dark:bg-[#27272a] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden ring-1 ring-black/5 dark:ring-white/10 transition-transform duration-500 hover:scale-[1.01] cursor-pointer group/widget">
+<!-- Header / Top Bar -->
+<div class="absolute top-0 left-0 right-0 p-5 z-20 flex justify-between items-start pointer-events-none">
+<div class="flex items-center gap-2 bg-white/80 dark:bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full ring-1 ring-black/5 dark:ring-white/10 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">bolt</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-slate-800 dark:text-slate-200">New Drop</span>
+</div>
+<!-- Favorite/Wishlist Action -->
+<button class="pointer-events-auto flex items-center justify-center w-8 h-8 rounded-full bg-white/80 dark:bg-black/40 backdrop-blur-md hover:bg-white dark:hover:bg-black transition-colors ring-1 ring-black/5 dark:ring-white/10 text-slate-600 dark:text-slate-300 hover:text-red-500 dark:hover:text-red-400">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<!-- Hero Image Area (Takes up ~65% of height) -->
+<div class="h-[65%] w-full relative bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<!-- Image -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover/widget:scale-105" data-alt="Closeup of premium futuristic sneakers with blue accent lighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDXC09ZKtVkemCyvra9ymSXbCFRRn-gMxv-4VFBBXh9_sRsMQvFHO29DvMwjTNr2wwP_T8bjeLSZDoUtCpI9Yfg-OV2Qjjautzug6bo1i_fMGpZm4WsVQ2WpuFEcjtAsP7QwSQFNGXWYX_lNFIfTkl4rz1R-xa1_6g8bgftg-5yINNutjFejl4W8UeabmCYg9H0zEoAVm60g8wgk9s1VpKXkhEUaV4rrKoeQWUv5xa8t6kocsUnku9F_tNP-8rlFlTrFuV0Iw5r8g");'>
+</div>
+<!-- Gradient Overlay for text readability at bottom of image if needed -->
+<div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/10 dark:from-[#27272a]/40 to-transparent"></div>
+</div>
+<!-- Content Area (Takes up ~35% of height) -->
+<div class="h-[35%] w-full p-5 sm:p-6 flex flex-col justify-between bg-white dark:bg-[#27272a] relative z-10">
+<!-- Product Info -->
+<div class="flex justify-between items-start gap-4">
+<div>
+<h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight mb-1">
+                                        Air Stride X1
+                                    </h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium line-clamp-1">
+                                        Premium comfort. Limited run edition.
+                                    </p>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-lg sm:text-xl font-bold text-primary">$120.00</span>
+</div>
+</div>
+<!-- Actions Row -->
+<div class="flex items-center gap-3 mt-auto">
+<button class="flex-1 h-11 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary dark:hover:bg-primary hover:text-white dark:hover:text-white rounded-xl font-semibold text-sm transition-all shadow-md active:scale-95 flex items-center justify-center gap-2">
+<span>Buy Now</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="h-11 w-11 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+<!-- WIDGET END -->
+</div>
+<!-- Specs / Documentation Mockup -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-5 rounded-2xl bg-white dark:bg-[#191933] border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-3">
+<span class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined text-[20px]">aspect_ratio</span>
+</span>
+<h3 class="text-base font-bold text-slate-900 dark:text-white">Dimensions</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Designed for a custom 6x4 grid slot. Approx aspect ratio of 1.5:1. Uses iOS standard 32px (2rem) corner radius.
+                        </p>
+</div>
+<div class="p-5 rounded-2xl bg-white dark:bg-[#191933] border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-3">
+<span class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+</span>
+<h3 class="text-base font-bold text-slate-900 dark:text-white">Theming</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Adapts to system appearance. Uses Zinc-850 for dark mode depth and pure white for light mode crispness.
+                        </p>
+</div>
+<div class="p-5 rounded-2xl bg-white dark:bg-[#191933] border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-3">
+<span class="p-2 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-[20px]">touch_app</span>
+</span>
+<h3 class="text-base font-bold text-slate-900 dark:text-white">Interaction</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Entire card is tappable deep link. Secondary "Buy Now" button provides direct checkout intent signal.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

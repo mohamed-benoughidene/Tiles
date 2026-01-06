@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apple Widget: Link Tile (6x4)</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                        // Custom zinc colors to match the request exactly if not in default palette
+                        "zinc-850": "#202023", 
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem", 
+                        "lg": "1rem", 
+                        "xl": "1.5rem", 
+                        "2xl": "1.75rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "radial-gradient(rgb(0 0 0 / 0.1) 1px, transparent 1px)",
+                        'grid-pattern-dark': "radial-gradient(rgb(255 255 255 / 0.1) 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for cleaner look if needed */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 20px;
+        }
+        
+        /* iOS-like smoothing */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display transition-colors duration-300">
+<!-- Main Layout Container -->
+<div class="relative flex flex-grow flex-col items-center justify-center p-6 overflow-hidden">
+<!-- Background Grid Decoration -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-40 bg-grid-pattern dark:bg-grid-pattern-dark [background-size:24px_24px]"></div>
+<!-- Content Wrapper -->
+<div class="relative z-10 flex flex-col items-center w-full max-w-4xl gap-8">
+<!-- Header Section -->
+<div class="text-center space-y-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary dark:text-blue-300 text-xs font-medium tracking-wide">
+<span class="material-symbols-outlined text-[14px]">widgets</span>
+                    iOS Widget Preview
+                </span>
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-bold tracking-tight">Link Tile Variant</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-lg mx-auto">
+                    A 6x4 grid component designed for rich article previews with high data density and clean aesthetics.
+                </p>
+</div>
+<!-- Preview Canvas -->
+<div class="w-full flex justify-center py-10">
+<!-- The Widget Component -->
+<!-- 6x4 Grid Ratio roughly 1.5 aspect ratio. 
+                     Width of ~360px represents a mobile width. Height ~240px. -->
+<div class="group cursor-pointer relative w-full max-w-[360px] aspect-[3/2] flex flex-col bg-white dark:bg-zinc-850 rounded-[22px] shadow-[0_8px_30px_rgb(0,0,0,0.12)] ring-1 ring-black/5 dark:ring-white/10 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgb(0,0,0,0.2)]">
+<!-- Widget Content Layout -->
+<div class="flex h-full p-5 gap-4">
+<!-- Left Column: Text Content -->
+<div class="flex flex-col flex-1 justify-between h-full min-w-0">
+<!-- Header: Source & Time -->
+<div class="flex items-center gap-2 mb-1">
+<div class="w-5 h-5 rounded-md bg-indigo-500 flex items-center justify-center text-white shrink-0">
+<span class="material-symbols-outlined text-[12px]">article</span>
+</div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
+                                    Design Weekly • 2h ago
+                                </p>
+</div>
+<!-- Body: Title & Excerpt -->
+<div class="flex flex-col gap-2">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">
+                                    The Future of Mobile Interfaces
+                                </h3>
+<p class="text-slate-500 dark:text-slate-400 text-[13px] leading-snug line-clamp-3 font-normal">
+                                    Exploring how spatial design principles and depth are reshaping the way users interact with handheld devices in 2024.
+                                </p>
+</div>
+<!-- Footer: Read Indicator (Optional, subtle) -->
+<div class="mt-auto pt-2 flex items-center gap-1 text-primary dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="text-xs font-medium">Read article</span>
+<span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+</div>
+</div>
+<!-- Right Column: Visual -->
+<div class="w-[100px] shrink-0 h-full">
+<div class="w-full h-full rounded-xl bg-cover bg-center bg-no-repeat shadow-inner ring-1 ring-black/5 dark:ring-white/5" data-alt="Abstract fluid blue and purple gradient shapes" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8KXnF-Rgm4udfJUcTX9MR3ITDhrREELWPrzwGUnZUFUV7chOo2U79uo-NzNdKs7JTan_e4LP8CGDbZDeyGqG2jMaevcfAbW-lgLfp7s3ZvlmzKzRawJbIeblj6hf4bhilz21epRh091mWYgojBjXLk02rqguSCox9KcISVIMxc0agWWcF_h2kLLOl8ecjLGJ5FrjyCEE5pP7mUEC1LNaMO3XwVNOCj-lERvB2LujQUzcCALHxyyv--q82GLu6rgjoaEDM0q3s4w');"></div>
+</div>
+</div>
+<!-- Tap Overlay Effect -->
+<div class="absolute inset-0 bg-primary/0 group-active:bg-primary/5 transition-colors duration-200 pointer-events-none"></div>
+</div>
+<!-- End Widget Component -->
+</div>
+<!-- Footer / Meta Info -->
+<div class="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400 dark:text-slate-500 font-mono">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Grid: 6x4</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+<span>Radius: 22px</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">dark_mode</span>
+<span>Dark Mode: On</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>

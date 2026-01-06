@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LinkBio App - Social Grid Widget</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                        "ios-dark": "#1C1C1E", // Apple System Gray 6 (Dark)
+                        "ios-gray": "#2C2C2E", // Apple System Gray 5 (Dark)
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "1.75rem",
+                        "3xl": "2rem", // iOS Squircle approximation
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px -5px rgba(19, 19, 236, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111122; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333344; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444455; 
+        }
+        
+        /* Smooth squircle-like smoothing */
+        .ios-smoothing {
+            border-radius: 1.5rem; 
+            /* Corner smoothing is native to Apple but CSS requires masking for true squircle. 
+               We will use standard border-radius which is sufficient for web mockups. */
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden antialiased selection:bg-primary selection:text-white">
+<div class="flex h-screen w-full bg-background-dark overflow-hidden">
+<!-- Sidebar -->
+<div class="w-20 lg:w-72 flex-shrink-0 border-r border-white/5 flex flex-col justify-between bg-[#111122] p-4 transition-all duration-300">
+<div class="flex flex-col gap-8">
+<!-- Brand -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-primary/20 flex items-center justify-center aspect-square rounded-xl size-10 text-primary border border-primary/20">
+<span class="material-symbols-outlined" style="font-size: 24px;">grid_view</span>
+</div>
+<h1 class="text-white text-lg font-bold leading-normal hidden lg:block tracking-tight">LinkBio</h1>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl bg-primary/10 border border-primary/10 group transition-colors" href="#">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">widgets</span>
+<p class="text-white text-sm font-medium leading-normal hidden lg:block">Widgets</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition-colors group text-[#9292c9] hover:text-white" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">palette</span>
+<p class="text-sm font-medium leading-normal hidden lg:block">Design</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition-colors group text-[#9292c9] hover:text-white" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">bar_chart</span>
+<p class="text-sm font-medium leading-normal hidden lg:block">Analytics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition-colors group text-[#9292c9] hover:text-white" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<p class="text-sm font-medium leading-normal hidden lg:block">Settings</p>
+</a>
+</nav>
+</div>
+<!-- User Profile -->
+<div class="flex items-center gap-3 px-2 py-2 mt-auto border-t border-white/5 pt-6">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shrink-0 border-2 border-primary/30" data-alt="User profile picture showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCSocc7-IBXPgP0mCIXC3f3TctaGR7LxASdUyO0cp5F7crGzYGNt2FNPmjM3bF6EMli0HTK9v512f9KZ6PBUvp5ZuBTxBuPZXeHWnZ2BTbJj6FCU9SEjrEkgVvviNAdEEy4O64HzRK6GJs0PUdWd2kambToud1oBsz1erW7O_IygZsWYTpHi16jwJm_AKoxAuaygbq3qD0wGlOO16yzwyjxnAo03tK1nz5riRIrmoRyYfE8lWjSeDX6OQojgH1j_gwM7kJPHQRbA");'></div>
+<div class="hidden lg:flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Sarah Designer</p>
+<p class="text-[#9292c9] text-xs truncate">Pro Plan</p>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#111122]/50 backdrop-blur-md z-10">
+<div class="flex flex-col">
+<h2 class="text-white text-xl font-bold tracking-tight">Social Grid Tile</h2>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<p class="text-[#9292c9] text-xs font-medium">iOS Medium Widget (4x2)</p>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center gap-2 h-9 px-4 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-colors border border-white/5">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Preview</span>
+</button>
+<button class="flex items-center justify-center gap-2 h-9 px-4 rounded-lg bg-primary hover:bg-primary/90 text-white text-sm font-medium shadow-lg shadow-primary/20 transition-all border border-primary/50">
+<span class="material-symbols-outlined text-[18px]">ios_share</span>
+<span>Export Widget</span>
+</button>
+</div>
+</header>
+<!-- Canvas Area -->
+<main class="flex-1 overflow-y-auto p-8 relative flex flex-col items-center justify-center bg-[#0c0c16]">
+<!-- Grid Background Pattern -->
+<div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 24px 24px;">
+</div>
+<!-- Preview Wrapper -->
+<div class="relative z-10 flex flex-col items-center gap-8 w-full max-w-2xl">
+<!-- The Widget Preview Container -->
+<div class="group relative">
+<!-- Glow Effect -->
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-[2rem] opacity-20 blur-xl group-hover:opacity-30 transition duration-1000"></div>
+<!-- The iOS Widget (4x2 Aspect Ratio) -->
+<!-- Approx dimensions for Medium Widget @2x is roughly 658x310, displayed at ~340x160 on screens -->
+<div class="relative w-[360px] h-[170px] bg-ios-dark rounded-[1.4rem] p-5 flex flex-col justify-between shadow-2xl border border-white/10 overflow-hidden select-none hover:scale-[1.02] transition-transform duration-300 ease-out cursor-pointer">
+<!-- Widget Background Decoration (Subtle) -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+<!-- Widget Header -->
+<div class="flex justify-between items-start z-10">
+<div class="flex flex-col gap-0.5">
+<h3 class="text-white text-[17px] font-semibold tracking-[-0.01em] leading-tight">Connect With Us</h3>
+<p class="text-gray-400 text-[11px] font-medium uppercase tracking-wider">Socials</p>
+</div>
+<div class="bg-primary/10 rounded-full p-1.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'WEIGHT' 600;">link</span>
+</div>
+</div>
+<!-- Widget Content: Social Row -->
+<div class="flex items-center justify-between gap-2 mt-auto z-10 px-1">
+<!-- Instagram -->
+<div class="flex flex-col items-center gap-1 group/icon">
+<div class="w-11 h-11 rounded-full bg-ios-gray flex items-center justify-center hover:bg-[#3A3A3C] active:scale-95 transition-all cursor-pointer ring-1 ring-white/5 shadow-sm">
+<svg class="w-5 h-5 text-white" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+</svg>
+</div>
+</div>
+<!-- TikTok -->
+<div class="flex flex-col items-center gap-1 group/icon">
+<div class="w-11 h-11 rounded-full bg-ios-gray flex items-center justify-center hover:bg-[#3A3A3C] active:scale-95 transition-all cursor-pointer ring-1 ring-white/5 shadow-sm">
+<svg class="w-5 h-5 text-white" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"></path>
+</svg>
+</div>
+</div>
+<!-- X (Twitter) -->
+<div class="flex flex-col items-center gap-1 group/icon">
+<div class="w-11 h-11 rounded-full bg-ios-gray flex items-center justify-center hover:bg-[#3A3A3C] active:scale-95 transition-all cursor-pointer ring-1 ring-white/5 shadow-sm">
+<svg class="w-4 h-4 text-white" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+</svg>
+</div>
+</div>
+<!-- YouTube -->
+<div class="flex flex-col items-center gap-1 group/icon">
+<div class="w-11 h-11 rounded-full bg-ios-gray flex items-center justify-center hover:bg-[#3A3A3C] active:scale-95 transition-all cursor-pointer ring-1 ring-white/5 shadow-sm">
+<svg class="w-5 h-5 text-white" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+</svg>
+</div>
+</div>
+<!-- LinkedIn -->
+<div class="flex flex-col items-center gap-1 group/icon">
+<div class="w-11 h-11 rounded-full bg-ios-gray flex items-center justify-center hover:bg-[#3A3A3C] active:scale-95 transition-all cursor-pointer ring-1 ring-white/5 shadow-sm">
+<svg class="w-5 h-5 text-white" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Labels -->
+<div class="absolute -right-24 top-1/2 -translate-y-1/2 flex flex-col gap-1 items-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+<div class="bg-[#232348] text-[#9292c9] text-[10px] px-2 py-1 rounded-md border border-white/5 shadow-lg whitespace-nowrap">
+                            160px Height
+                        </div>
+</div>
+<div class="absolute bottom-[-40px] left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+<div class="bg-[#232348] text-[#9292c9] text-[10px] px-2 py-1 rounded-md border border-white/5 shadow-lg whitespace-nowrap">
+                            360px Width
+                        </div>
+</div>
+</div>
+<!-- Customization Controls (Simplified) -->
+<div class="w-full max-w-[400px] bg-[#111122] rounded-xl border border-white/5 p-4 mt-8">
+<h4 class="text-white text-sm font-medium mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+                        Widget Appearance
+                    </h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-[#9292c9] text-xs">Background</span>
+<div class="flex gap-2">
+<div class="w-6 h-6 rounded-full bg-ios-dark border-2 border-primary cursor-pointer"></div>
+<div class="w-6 h-6 rounded-full bg-white border border-white/10 cursor-pointer opacity-50 hover:opacity-100"></div>
+<div class="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 border border-white/10 cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[#9292c9] text-xs">Border Radius</span>
+<div class="flex gap-1 bg-[#1c1c2e] p-1 rounded-lg">
+<button class="p-1 rounded hover:bg-white/10"><span class="block w-4 h-4 border border-[#9292c9] rounded-sm"></span></button>
+<button class="p-1 rounded bg-white/10"><span class="block w-4 h-4 border border-white rounded-[6px]"></span></button>
+<button class="p-1 rounded hover:bg-white/10"><span class="block w-4 h-4 border border-[#9292c9] rounded-full"></span></button>
+</div>
+</div>
+<div class="pt-2 border-t border-white/5">
+<div class="flex justify-between text-xs text-[#9292c9]">
+<span>Preview Mode</span>
+<span class="text-white">Dark (System)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

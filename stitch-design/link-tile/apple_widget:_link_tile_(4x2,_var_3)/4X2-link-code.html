@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apple Widget: Link Tile (4x2, Var 3)</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                        "ios-dark": "#1c1c1e", // Standard iOS system background
+                        "ios-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "ios": "1.375rem", // Approx 22px for widgets
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for better font rendering */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Smooth squircle-like radius for iOS look if supported, fallback to standard rounded */
+        .rounded-ios {
+            border-radius: 1.375rem; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-white overflow-x-hidden selection:bg-primary/30">
+<!-- Main Presentation Container -->
+<div class="flex-1 flex flex-col items-center justify-center p-8">
+<!-- Presentation Wrapper -->
+<div class="flex flex-col items-center gap-8 animate-fade-in">
+<!-- WIDGET COMPONENT START -->
+<!-- 
+               Dimensions: w-[338px] h-[158px] simulates the Medium Widget (4x2) size on an iPhone 13/14 Pro.
+               Shadows: Subtle soft shadow to lift it off the dark background.
+               Border: Micro-border using ring utility.
+            -->
+<div class="group relative w-[338px] h-[158px] bg-ios-light dark:bg-ios-dark rounded-ios shadow-2xl shadow-black/20 ring-1 ring-black/5 dark:ring-white/10 overflow-hidden cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98]">
+<!-- Full clickable area wrapper -->
+<div class="absolute inset-0 z-10"></div>
+<!-- Widget Content Layout -->
+<div class="flex items-center h-full p-4 gap-4">
+<!-- Left: Thumbnail Image -->
+<!-- Fixed size square thumbnail, rounded corners but slightly less than container -->
+<div class="relative shrink-0 w-[84px] h-[84px] rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 shadow-sm ring-1 ring-black/5 dark:ring-white/5">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110 duration-700 ease-out" data-alt="Abstract colorful 3d shapes representing modern design" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFAJalqElo677yC3IOxZHqHIaMZIRSr5-T6GODeiUwEyP54YefcG9Fz1MD_X1GapMitF7e_yAUo90BtUpnq0Vt1qVDVm0P1oMjMgNFAfFhfGx6pebRW-gY_q9uA2HvluYhwidx3Gl1LhI71UtuVTxEOdFmvcAM8PKI57IMCrrkcBxJC1XuNdO4d9BgFFA7n78roOZyg2TWqkyUaAQxG2kMmkZQfhqAdVQQCSTK27dhf9zVochEa5RvM8IteA4g4C5B2BFQPyXDUg');">
+</div>
+<!-- Play icon overlay (optional, adds context) -->
+<div class="absolute inset-0 flex items-center justify-center bg-black/10 backdrop-blur-[1px]">
+<span class="material-symbols-outlined text-white text-[28px] drop-shadow-md">play_circle</span>
+</div>
+</div>
+<!-- Right: Text Content -->
+<div class="flex flex-col justify-center flex-1 min-w-0 py-1">
+<!-- Top Label / Badge -->
+<div class="flex items-center gap-1.5 mb-1.5">
+<span class="material-symbols-outlined text-[14px] text-primary dark:text-indigo-400">podcasts</span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary dark:text-indigo-400 opacity-90">New Episode</span>
+</div>
+<!-- Main Title -->
+<h3 class="text-[17px] font-bold leading-[1.3] text-slate-900 dark:text-white line-clamp-2 mb-1">
+                            The Future of AI in Product Design
+                        </h3>
+<!-- Subtitle / Meta -->
+<p class="text-[13px] font-medium text-slate-500 dark:text-slate-400 line-clamp-1 flex items-center gap-1">
+<span>Design Matters</span>
+<span class="text-[10px] opacity-60">•</span>
+<span>42m</span>
+</p>
+</div>
+<!-- Chevron (Subtle Indicator) -->
+<div class="flex items-center justify-center text-slate-300 dark:text-zinc-600 pr-1">
+<span class="material-symbols-outlined text-2xl font-light">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- WIDGET COMPONENT END -->
+<!-- Meta Label -->
+<div class="flex flex-col items-center gap-2">
+<p class="text-slate-400 dark:text-slate-500 text-sm font-medium tracking-wide">
+                    iOS Medium Widget (4x2) - Var 3
+                </p>
+<div class="h-1 w-12 rounded-full bg-primary/20"></div>
+</div>
+</div>
+</div>
+</body></html>

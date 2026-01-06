@@ -3,7 +3,7 @@ import { TileSize, TileSizeName } from "@/types/tiles";
 import { TILE_SIZES } from "@/lib/tileConstants";
 
 interface FloatingToolbarProps {
-    onAddTile: (size: TileSize) => void;
+    onAddTile: (size: TileSize, type?: string) => void;
 }
 
 export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
@@ -20,7 +20,7 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
 
                 {/* Core Tools */}
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['4x2'])}
+                    onClick={() => onAddTile(TILE_SIZES['4x2'], 'link')}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Link Button"
                 >
@@ -28,7 +28,7 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Link</span>
                 </button>
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['2x2'])}
+                    onClick={() => onAddTile(TILE_SIZES['2x2'], 'social')}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Social Grid"
                 >
@@ -36,7 +36,7 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Socials</span>
                 </button>
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['2x1'])}
+                    onClick={() => onAddTile(TILE_SIZES['6x1'], 'text')}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Text Header"
                 >
@@ -44,27 +44,20 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Text</span>
                 </button>
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['1x1'])}
+                    onClick={() => onAddTile(TILE_SIZES['6x4'], 'note')}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Note"
                 >
                     <span className="material-symbols-outlined text-[18px]">notes</span>
                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Note</span>
                 </button>
-                <button
-                    onClick={() => onAddTile(TILE_SIZES['2x1'])}
-                    className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
-                    title="Add Music"
-                >
-                    <span className="material-symbols-outlined text-[18px]">music_note</span>
-                    <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Music</span>
-                </button>
+
 
                 <div className="w-px h-5 bg-zinc-200 dark:bg-zinc-800 mx-1 shrink-0"></div>
 
                 {/* Commerce Tools */}
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['1x1'])}
+                    onClick={() => onAddTile(TILE_SIZES['4x4'], 'price-menu')}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Pricing Table"
                 >
@@ -72,7 +65,7 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Pricing</span>
                 </button>
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['1x2'])}
+                    onClick={() => onAddTile(TILE_SIZES['2x2'], 'product')}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Product Card"
                 >
@@ -100,7 +93,7 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Video</span>
                 </button>
                 <button
-                    onClick={() => onAddTile(TILE_SIZES['2x2'])}
+                    onClick={() => onAddTile(TILE_SIZES['2x2'], 'map')}
                     className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
                     title="Add Map"
                 >

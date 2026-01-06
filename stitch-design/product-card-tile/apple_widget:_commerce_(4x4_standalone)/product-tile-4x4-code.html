@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apple Widget: Commerce Preview</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1313ec",
+              "primary-hover": "#0c0cb8",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101022",
+              "surface-dark": "#181829",
+              "surface-light": "#ffffff",
+              "ios-gray-dark": "#1c1c1e",
+              "ios-gray-light": "#f2f2f7",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "1rem",
+              "xl": "1.5rem",
+              "2xl": "2rem",
+              "3xl": "2.5rem",
+              "full": "9999px",
+              "ios": "2rem", // Approximate iOS squircle radius for large widgets
+            },
+            boxShadow: {
+              'ios-card': '0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 0 1px 0 rgba(255, 255, 255, 0.1)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }.squircle {
+        clip-path: inset(0 round 32px);
+      }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col overflow-x-hidden font-display text-slate-900 dark:text-white selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-white/10 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md px-6 py-4">
+<div class="mx-auto max-w-7xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-purple-600 text-white shadow-lg">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-none tracking-tight">LinkBio Widgets</h1>
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">Commerce Tile Preview</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex h-9 items-center gap-2 rounded-lg border border-gray-200 dark:border-white/10 px-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">devices</span>
+<span>Preview</span>
+</button>
+<button class="flex h-9 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-lg shadow-primary/25 hover:bg-primary-hover transition-all">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Save Widget</span>
+</button>
+<div class="ml-2 h-9 w-9 overflow-hidden rounded-full border border-gray-200 dark:border-white/10 cursor-pointer">
+<div class="h-full w-full bg-cover bg-center" data-alt="User profile avatar showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdr3b3qylRdMuqfZUqPffhG4WmQGeorqlddvdAhsJXEbMHmCga6UbFj2iQ_e6nf2IJqIdZE8sWrHiXTKbewmeAFBsK40IQHlZU-R7usOTYh8_fuaAgyTX9Ei0w8-YN1iX9tj69zJKkda5P2J14Zq5G2rnWFNtRPnqiWeUVW3sOeQuF7ymcBHUk8xMXS8ELjwBFVqRmfHK8SIhKXNMFsYcmo3U2zss2yVFbMQwXKlCanu0TGgqMRIUyJAeic3KTNce1UUHTnhMPaA");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col lg:flex-row max-w-[1400px] mx-auto w-full p-6 gap-8">
+<aside class="w-full lg:w-80 flex flex-col gap-6 order-2 lg:order-1 shrink-0">
+<div class="rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-surface-dark p-5 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-base">Widget Customization</h3>
+<span class="material-symbols-outlined text-gray-400">tune</span>
+</div>
+<div class="space-y-5">
+<div>
+<label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2">Size</label>
+<div class="grid grid-cols-3 gap-2 bg-gray-100 dark:bg-black/30 p-1 rounded-xl">
+<button class="flex flex-col items-center justify-center py-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl mb-1">crop_square</span>
+<span class="text-[10px] font-medium">Small</span>
+</button>
+<button class="flex flex-col items-center justify-center py-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl mb-1">rectangle</span>
+<span class="text-[10px] font-medium">Medium</span>
+</button>
+<button class="flex flex-col items-center justify-center py-2 rounded-lg bg-white dark:bg-white/10 shadow-sm text-primary font-medium transition-colors">
+<span class="material-symbols-outlined text-xl mb-1">grid_view</span>
+<span class="text-[10px]">Large</span>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2">Featured Product</label>
+<div class="flex items-center gap-3 p-2 rounded-xl border border-gray-200 dark:border-white/10 hover:border-primary/50 cursor-pointer transition-colors bg-gray-50 dark:bg-white/5">
+<div class="h-10 w-10 rounded-lg bg-cover bg-center" data-alt="Small thumbnail of a ceramic mug" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCU44aX8q8mBYSof8VhxmkphfYlbWPMLIoE2XXhgmIyOI4tDkOWTCIVzrKYg_GraxzeLI9jGAInz-pDXtzqtXHy7TUMH21JRt1HpQeDquH0YqZXiwb-vggwRiuqD6MPKEV41vB-0dbm49dOa_z9U6eXS5dKnw_WVDfVFUIWlECsFk2bHeJRGwZunBnUZwQlLLMl3J0L5C3bHiDmt-2DkjVas8OVeQRKk3AQE3XBpEIQ0G9WK6AoK_zAkF5M7BSu5WWf4GamNHvxTQ");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">Handcrafted Ceramic Mug</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">$32.00</p>
+</div>
+<span class="material-symbols-outlined text-gray-400 text-sm">edit</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2">Appearance</label>
+<div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-white/5 mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 text-lg">dark_mode</span>
+<span class="text-sm font-medium">Dark Mode</span>
+</div>
+<div class="relative inline-flex h-5 w-9 items-center rounded-full bg-primary cursor-pointer">
+<span class="translate-x-4 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition mr-1"></span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-white/5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 text-lg">border_style</span>
+<span class="text-sm font-medium">Show Border</span>
+</div>
+<div class="relative inline-flex h-5 w-9 items-center rounded-full bg-gray-300 dark:bg-gray-600 cursor-pointer">
+<span class="translate-x-1 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-surface-dark p-5 shadow-sm">
+<h3 class="font-bold text-base mb-4">Widget Analytics</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-3 rounded-xl bg-gray-50 dark:bg-white/5">
+<p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Impressions</p>
+<p class="text-xl font-bold">12.4k</p>
+<div class="flex items-center text-emerald-500 text-xs mt-1">
+<span class="material-symbols-outlined text-sm mr-0.5">trending_up</span>
+<span>+12%</span>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-gray-50 dark:bg-white/5">
+<p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Taps</p>
+<p class="text-xl font-bold">843</p>
+<div class="flex items-center text-emerald-500 text-xs mt-1">
+<span class="material-symbols-outlined text-sm mr-0.5">trending_up</span>
+<span>+5%</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex-1 order-1 lg:order-2 flex flex-col min-h-[600px] rounded-3xl overflow-hidden relative border border-gray-200 dark:border-white/5 bg-gray-100 dark:bg-[#09090b] shadow-inner group/canvas">
+<div class="absolute inset-0 z-0 opacity-40 dark:opacity-20 pointer-events-none" style="background: radial-gradient(circle at 50% 120%, #4f46e5 0%, transparent 50%), radial-gradient(circle at 80% 20%, #ec4899 0%, transparent 40%), radial-gradient(circle at 20% 40%, #06b6d4 0%, transparent 40%); filter: blur(60px);">
+</div>
+<div class="absolute inset-0 z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-10 mix-blend-overlay"></div>
+<div class="relative z-10 flex justify-between items-center p-6 lg:px-10 lg:pt-8">
+<div>
+<h2 class="text-2xl lg:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Commerce Widget</h2>
+<p class="text-gray-500 dark:text-gray-400 mt-2 max-w-md">
+                    This 4x4 Large Widget showcases your featured product directly on the iOS Home Screen.
+                </p>
+</div>
+<div class="hidden sm:flex gap-2">
+<span class="px-2 py-1 rounded bg-white/50 dark:bg-black/20 text-[10px] font-mono uppercase tracking-wider text-gray-500 border border-gray-200 dark:border-white/5">iOS 17</span>
+<span class="px-2 py-1 rounded bg-white/50 dark:bg-black/20 text-[10px] font-mono uppercase tracking-wider text-gray-500 border border-gray-200 dark:border-white/5">Large</span>
+</div>
+</div>
+<div class="relative z-10 flex-1 flex items-center justify-center p-8 lg:p-12">
+<div class="relative w-[340px] h-[340px] sm:w-[380px] sm:h-[380px] flex flex-col group/widget transition-transform duration-500 hover:scale-[1.02] cursor-pointer">
+<div class="absolute inset-0 bg-[#1c1c1e] dark:bg-zinc-900 rounded-[2.5rem] shadow-ios-card overflow-hidden ring-1 ring-white/10 flex flex-col">
+<div class="h-[48%] w-full relative">
+<div class="absolute top-4 left-4 z-20">
+<span class="bg-black/40 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/10 tracking-wide uppercase">
+                                    Featured
+                            </span>
+</div>
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover/widget:scale-105" data-alt="Close up of a handcrafted ceramic mug with speckled glaze" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCt_kT59BiZoR0ElONBN6P8134pZuzWiUkgz4wiL3aoq_CezXSVEUanso5lpV0M85GpyQisYb24w4gM6uac8oikq5HTMlqgwx6clVafiqNmScjuuw7bTfcCZLxp99lCZQQBETh2LtaV6k1kPPWGfaNQ5Q-dkHakXYDOG-aolob8dwKLnTfTTm6TjnaxTNJzgL9_wYnI2hR4yMq196bUvPfdr8GodW0i78jtMD1J0X1if9Dj84t95Npkoc852L0KQH7CZIK7gcxW4w");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1c1c1e] via-transparent to-transparent opacity-80"></div>
+</div>
+<div class="h-[52%] w-full p-5 flex flex-col bg-[#1c1c1e] dark:bg-zinc-900 relative">
+<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+<div class="flex-1 flex flex-col z-10">
+<div class="flex justify-between items-start gap-2">
+<h3 class="text-white text-lg sm:text-xl font-bold leading-tight tracking-tight line-clamp-2">
+                                    Handcrafted Ceramic Mug
+                                </h3>
+</div>
+<div class="flex items-center gap-1.5 mt-1.5">
+<div class="flex text-yellow-400 text-xs">
+<span class="material-symbols-outlined text-[14px] fill-current">star</span>
+<span class="material-symbols-outlined text-[14px] fill-current">star</span>
+<span class="material-symbols-outlined text-[14px] fill-current">star</span>
+<span class="material-symbols-outlined text-[14px] fill-current">star</span>
+<span class="material-symbols-outlined text-[14px] fill-current">star</span>
+</div>
+<span class="text-zinc-500 text-[10px] sm:text-xs font-medium">(128)</span>
+</div>
+<p class="text-zinc-400 text-xs sm:text-[13px] leading-snug line-clamp-2 mt-2 pr-2">
+                                Kiln-fired with a speckled glaze finish. Limited seasonal stock.
+                            </p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-2 z-10">
+<div class="flex flex-col">
+<span class="text-zinc-500 text-[10px] uppercase tracking-wider font-semibold">Price</span>
+<span class="text-white text-lg sm:text-xl font-bold">$32.00</span>
+</div>
+<button class="bg-primary hover:bg-primary-hover active:scale-95 transition-all text-white h-10 px-5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary/20 shrink-0">
+<span>Add to Bag</span>
+<span class="material-symbols-outlined text-[16px]">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative z-10 px-8 pb-6 flex justify-center">
+<div class="flex items-center gap-6 bg-white/80 dark:bg-black/40 backdrop-blur-md rounded-full px-6 py-2 border border-gray-200 dark:border-white/10 shadow-sm">
+<button class="flex flex-col items-center gap-1 group text-primary">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">phone_iphone</span>
+<span class="text-[10px] font-medium opacity-100">Light</span>
+</button>
+<div class="w-px h-6 bg-gray-300 dark:bg-white/20"></div>
+<button class="flex flex-col items-center gap-1 group text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">dark_mode</span>
+<span class="text-[10px] font-medium opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity">Dark</span>
+</button>
+<div class="w-px h-6 bg-gray-300 dark:bg-white/20"></div>
+<button class="flex flex-col items-center gap-1 group text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">wallpaper</span>
+<span class="text-[10px] font-medium opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity">Bg</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

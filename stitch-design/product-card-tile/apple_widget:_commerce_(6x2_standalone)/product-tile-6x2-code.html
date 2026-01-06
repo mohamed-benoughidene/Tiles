@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apple Widget: Commerce Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1313ec",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101022",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "body": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "1.75rem", "3xl": "2rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen font-display text-slate-900 dark:text-white overflow-x-hidden selection:bg-primary/30">
+<div class="relative flex h-full min-h-screen w-full flex-col">
+<!-- Main Layout Container -->
+<div class="layout-container flex h-full grow flex-col items-center justify-center p-6 md:p-12">
+<!-- Content Wrapper -->
+<div class="layout-content-container flex flex-col w-full max-w-[640px] gap-8">
+<!-- Page Heading -->
+<div class="flex flex-col items-center text-center gap-2 animate-fade-in-up">
+<h1 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">Widget Preview</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Commerce Strip (6x2) • Standalone</p>
+</div>
+<!-- Preview Canvas / Stage -->
+<div class="relative flex flex-col items-center justify-center w-full bg-white dark:bg-[#16162a] rounded-3xl p-8 md:p-16 shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<!-- Background Elements (Decorative Grid) -->
+<div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 24px 24px;">
+</div>
+<!-- Label above widget -->
+<div class="absolute top-6 left-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">smartphone</span>
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-400">iOS Preview</span>
+</div>
+<!-- THE WIDGET (6x2 Grid Size) -->
+<!-- Simulating a roughly 360px x 110px widget (Wide & Short) -->
+<div class="relative w-full max-w-[380px] h-[120px] bg-zinc-50 dark:bg-[#1c1c1e] rounded-[22px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] border border-white/50 dark:border-white/10 flex overflow-hidden cursor-pointer hover:scale-[1.02] transition-all duration-300 ring-1 ring-black/5 dark:ring-white/5 group">
+<!-- Content Side (Left) -->
+<div class="flex-1 flex flex-col justify-center px-5 py-3 gap-1 z-10 relative">
+<!-- Eyebrow -->
+<div class="flex items-center gap-1.5 mb-0.5">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">New Drop</span>
+</div>
+<!-- Headline -->
+<h2 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Summer Collection</h2>
+<!-- Subtext/Offer -->
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400">Get 20% off this week</p>
+<!-- CTA -->
+<div class="mt-2 flex items-center text-primary dark:text-[#5e5ce6] text-xs font-bold gap-1 group-hover:gap-2 transition-all">
+                                Shop Now 
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<!-- Visual Side (Right) -->
+<div class="w-[120px] h-full relative">
+<!-- Gradient Overlay for smooth text transition -->
+<div class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-zinc-50 dark:from-[#1c1c1e] to-transparent z-10"></div>
+<!-- Product Image -->
+<div class="w-full h-full bg-cover bg-center" data-alt="Abstract gradient orange and blue shapes representing summer vibes" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBC1SnlMnY42IqYuFMucI3WtKD-glbtTQ2J4BBTUqrWbcnbnMg2Sz01PrgppsMo4jStBPxvpmAJ2AGDk0hujQA1JmhGFVjm-gKMBN6o0V1-HwfJyAFTlDBshcrybkq18OjiaGG9cetf3aE77QWUXk2cVt_ZxD8ZirorsV4qxQH-z3Erbis4nH0iaEcJrwRLIovqjotSpSdaAhEslyIjqnQj8MnUcYWJrCIOoVZCXmGrhMnAmrHvReWEibc8ZzX075Ev6-OWGxVvNQ');">
+</div>
+</div>
+<!-- Gloss/Reflection Overlay (Subtle iOS touch) -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 dark:opacity-20 pointer-events-none"></div>
+</div>
+<!-- Dimensions Indicator -->
+<div class="absolute bottom-4 right-6 text-[10px] text-slate-400 font-mono">
+                        380px x 120px
+                    </div>
+</div>
+<!-- Controls & Metadata Group -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+<!-- Action Buttons -->
+<div class="flex flex-col justify-end gap-3 order-2 md:order-1">
+<button class="flex w-full items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-primary hover:bg-blue-700 text-white gap-2 text-sm font-bold shadow-lg shadow-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+<span>Edit Widget Content</span>
+</button>
+<button class="flex w-full items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-white dark:bg-[#232338] hover:bg-slate-50 dark:hover:bg-[#2a2a42] text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 gap-2 text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>Share Preview</span>
+</button>
+</div>
+<!-- Metadata List -->
+<div class="flex flex-col bg-white dark:bg-[#16162a] rounded-xl border border-slate-200 dark:border-slate-800 p-5 order-1 md:order-2">
+<div class="grid grid-cols-[30%_1fr] gap-y-4 text-sm">
+<!-- Row 1 -->
+<div class="text-slate-500 dark:text-slate-400 font-medium">Dimensions</div>
+<div class="text-slate-900 dark:text-white font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-slate-400">aspect_ratio</span>
+                                6x2 (Wide Strip)
+                            </div>
+<!-- Row 2 -->
+<div class="text-slate-500 dark:text-slate-400 font-medium border-t border-slate-100 dark:border-slate-800 pt-4">Type</div>
+<div class="text-slate-900 dark:text-white font-medium border-t border-slate-100 dark:border-slate-800 pt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-slate-400">shopping_bag</span>
+                                Commerce
+                            </div>
+<!-- Row 3 -->
+<div class="text-slate-500 dark:text-slate-400 font-medium border-t border-slate-100 dark:border-slate-800 pt-4">Status</div>
+<div class="text-green-500 font-bold border-t border-slate-100 dark:border-slate-800 pt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                Active
+                            </div>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<p class="text-slate-400 dark:text-slate-600 text-xs text-center font-medium">
+                    Previewing for iOS 17 • Dark Mode
+                </p>
+</div>
+</div>
+</div>
+</body></html>

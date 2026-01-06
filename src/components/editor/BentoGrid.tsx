@@ -77,7 +77,8 @@ export function BentoGrid({
                 isDraggable={true}
                 isResizable={false} // We handle resize via our custom menu for now conform to "Bento" sizes
                 onLayoutChange={(layout: any[], allLayouts: any) => onLayoutChange(layout, allLayouts)}
-                draggableHandle=".drag-handle" // Allow dragging only from specific handle if desired, or remove for whole tile
+
+                draggableCancel=".no-drag" // Allow dragging everywhere except elements with .no-drag class
             >
                 {tiles.map((tile) => (
                     <div key={tile.id}>
