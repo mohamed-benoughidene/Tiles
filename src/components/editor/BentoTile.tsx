@@ -8,6 +8,8 @@ import { ProductTile } from "@/components/tiles/ProductTile";
 import { TextTile } from "@/components/tiles/TextTile";
 import { PriceMenuTile } from "@/components/tiles/PriceMenuTile";
 import { MapTile } from "@/components/tiles/MapTile";
+import { VideoTile } from "@/components/tiles/VideoTile";
+import { GalleryTile } from "@/components/tiles/GalleryTile";
 import { DeleteConfirmationModal } from "@/components/modals/DeleteConfirmationModal";
 
 import { cn } from "@/lib/utils";
@@ -147,13 +149,13 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                     "relative rounded-[2rem] h-full transition-colors duration-200 cursor-grab active:cursor-grabbing group bento-tile-content hover:z-[60]",
                     isSelected
                         ? cn(
-                            "ring-4 ring-indigo-500/10 dark:ring-indigo-500/20 border-2 border-indigo-500/50 dark:border-indigo-500 z-20",
-                            tile.type === 'placeholder' ? "bg-transparent" : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map' ? "bg-transparent border-transparent" : "bg-white dark:bg-zinc-900")
+                            "z-20",
+                            tile.type === 'placeholder' ? "bg-transparent" : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map' || tile.type === 'gallery' ? "bg-transparent border-transparent" : "bg-white dark:bg-zinc-900")
                         )
                         : tile.type === 'placeholder'
                             ? "border-2 border-dashed border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 z-10 bg-transparent"
-                            : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map'
-                                ? "z-10 bg-transparent" // LinkTile AND TextTile AND PriceMenuTile AND MapTile handle their own bg/border
+                            : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map' || tile.type === 'gallery'
+                                ? "z-10 bg-transparent" // LinkTile AND TextTile AND PriceMenuTile AND MapTile AND GalleryTile handle their own bg/border
                                 : "border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md z-10 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700"),
                 )}
                 onMouseDown={handleMouseDown}
@@ -165,8 +167,8 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                     onSelect(tile.id);
                 }}
             >
-                {/* Delete Button (Top Left) - Hide for LinkTile, NoteTile, SocialGridTile as they have their own */}
-                {tile.type !== 'link' && tile.type !== 'note' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && (
+                {/* Delete Button (Top Left) - Hide for LinkTile, NoteTile, SocialGridTile using their own */}
+                {tile.type !== 'link' && tile.type !== 'note' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-3 -left-3 z-30">
                         <button
                             className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 rounded-lg p-1.5 shadow-sm transition-colors cursor-pointer"
@@ -277,6 +279,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (onResize) onResize(id, sizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            data={tile.content}
                         />
                     </div>
                 ) : tile.type === 'text' ? (
@@ -315,6 +318,30 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                             onRemove={() => setIsDeleteDialogOpen(true)}
                         />
                     </div>
+                ) : tile.type === 'video' ? (
+                    <div className="w-full h-full">
+                        <VideoTile
+                            id={tile.id}
+                            title={tile.content?.text}
+                            url={tile.content?.url}
+                            size={tile.size.name}
+                            onResize={(id, sizeObj) => {
+                                if (onResize) onResize(id, sizeObj);
+                            }}
+                            onRemove={() => setIsDeleteDialogOpen(true)}
+                        />
+                    </div>
+                ) : tile.type === 'gallery' ? (
+                    <div className="w-full h-full">
+                        <GalleryTile
+                            id={tile.id}
+                            size={tile.size.name}
+                            onResize={(id, sizeObj) => {
+                                if (onResize) onResize(id, sizeObj);
+                            }}
+                            onRemove={() => setIsDeleteDialogOpen(true)}
+                        />
+                    </div>
                 ) : (
                     <div className="absolute inset-0 flex flex-col items-center justify-center p-6 gap-4">
                         {/* Icon Placeholder */}
@@ -335,7 +362,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                 )}
 
                 {/* Resize/Action Menu (Bottom Center) - Visible on Hover - Hide for LinkTile, NoteTile, SocialGridTile using their own toolbar */}
-                {tile.type !== 'link' && tile.type !== 'note' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && (
+                {tile.type !== 'link' && tile.type !== 'note' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
                     <div
                         className={cn(
                             "absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center bg-zinc-950 dark:bg-black border border-zinc-800 rounded-xl px-2 py-1.5 gap-1.5 shadow-xl z-30 transition-all duration-200",

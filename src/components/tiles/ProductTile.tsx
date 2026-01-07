@@ -7,6 +7,7 @@ import { ProductTile2x2 } from './product/ProductTile2x2';
 import { ProductTile4x2 } from './product/ProductTile4x2';
 import { ProductTile4x4 } from './product/ProductTile4x4';
 import { ProductTile6x2 } from './product/ProductTile6x2';
+import { ProductGalleryTile6x2 } from './product/ProductGalleryTile6x2';
 import { ProductTile6x4 } from './product/ProductTile6x4';
 
 interface ProductTileProps {
@@ -14,10 +15,13 @@ interface ProductTileProps {
     size: TileSizeName;
     onResize: (id: string, size: any) => void;
     onRemove: () => void;
-    data?: any;
+    data?: {
+        variant?: 'gallery' | string;
+        [key: string]: any;
+    };
 }
 
-export function ProductTile({ id = '', size, onResize, onRemove }: ProductTileProps) {
+export function ProductTile({ id = '', size, onResize, onRemove, data }: ProductTileProps) {
     const renderContent = () => {
         switch (size) {
             case '2x2':
@@ -27,7 +31,12 @@ export function ProductTile({ id = '', size, onResize, onRemove }: ProductTilePr
             case '4x4':
                 return <ProductTile4x4 />;
             case '6x2':
+                if (data?.variant === 'gallery') {
+                    return <ProductGalleryTile6x2 />;
+                }
                 return <ProductTile6x2 />;
+            case '6x2-gallery':
+                return <ProductGalleryTile6x2 />;
             case '6x4':
                 return <ProductTile6x4 />;
             default:
@@ -35,7 +44,7 @@ export function ProductTile({ id = '', size, onResize, onRemove }: ProductTilePr
         }
     };
 
-    const allowedSizes: TileSizeName[] = ['2x2', '4x2', '4x4', '6x2', '6x4'];
+    const allowedSizes: TileSizeName[] = ['2x2', '4x2', '4x4', '6x2', '6x2-gallery', '6x4'];
 
     return (
         <div className="group relative h-full w-full cursor-pointer">
@@ -67,9 +76,21 @@ export function ProductTile({ id = '', size, onResize, onRemove }: ProductTilePr
                 <TileToolbar
                     currentSize={size}
                     onResize={(newSizeName) => {
-                        const newSizeObj = Object.values(TILE_SIZES).find((s) => s.name === newSizeName);
-                        if (newSizeObj) {
-                            onResize(id, newSizeObj);
+                        // Handle variant switching via size
+                        if (newSizeName === '6x2-gallery') {
+                            // If user selects gallery, we want size 6x2 but with variant='gallery'
+                            // However, our system relies on size name match.
+                            // If we pass '6x2-gallery' objects, does RGL handle it? 
+                            // Yes, if we defined it in TILE_SIZES with same W/H.
+                            const newSizeObj = TILE_SIZES['6x2-gallery']; // Direct access since we added it
+                            if (newSizeObj) {
+                                onResize(id, newSizeObj);
+                            }
+                        } else {
+                            const newSizeObj = Object.values(TILE_SIZES).find((s) => s.name === newSizeName);
+                            if (newSizeObj) {
+                                onResize(id, newSizeObj);
+                            }
                         }
                     }}
                     allowedSizes={allowedSizes}

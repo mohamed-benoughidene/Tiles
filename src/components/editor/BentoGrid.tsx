@@ -81,7 +81,7 @@ export function BentoGrid({
                 draggableCancel=".no-drag" // Allow dragging everywhere except elements with .no-drag class
             >
                 {tiles.map((tile) => (
-                    <div key={tile.id}>
+                    <div key={tile.id} className="hover:!z-[60]">
                         <BentoTile
                             tile={tile}
                             isSelected={selectedTileId === tile.id}

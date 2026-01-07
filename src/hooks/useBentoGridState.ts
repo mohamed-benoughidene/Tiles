@@ -109,15 +109,16 @@ export function useBentoGridState(initialTiles: Tile[] = []) {
         // We could sync 'x' and 'y' back to tile data if needed for persistence
     }, []);
 
-    const addTile = useCallback((size: TileSize = DEFAULT_TILE_SIZE, type: string = 'link') => {
-        console.log('Adding tile:', { size, type });
+    const addTile = useCallback((size: TileSize = DEFAULT_TILE_SIZE, type: string = 'link', data?: any) => {
+        console.log('Adding tile:', { size, type, data });
         const newTile: Tile = {
             id: `tile-${Date.now()}`,
             type: type, // Use passed type
             size: size,
             position: { row: 0, col: 0 }, // Placeholder, RGL handles actual layout
             content: {
-                text: type === 'note' ? 'New Note' : type === 'text' ? 'Header' : type === 'price-menu' ? 'Pricing' : type === 'map' ? 'Map Location' : 'New Tile'
+                text: type === 'note' ? 'New Note' : type === 'text' ? 'Header' : type === 'price-menu' ? 'Pricing' : type === 'map' ? 'Map Location' : 'New Tile',
+                ...data // Spread data (like {variant: 'gallery'}) into content
             } // Default content based on type
         };
 

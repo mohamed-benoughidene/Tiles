@@ -18,6 +18,7 @@ export function TileToolbar({ currentSize = "1x1", onResize, allowedSizes }: Til
             case "4x2": return "ad_units"; // Medium widget
             case "4x4": return "featured_video"; // Large Square
             case "6x2": return "calendar_view_week"; // Wide Strip
+            case "6x2-gallery": return "collections_bookmark"; // Product Gallery
             case "6x4": return "newspaper"; // Large Wide
             default: return "crop_square";
         }

@@ -13,7 +13,9 @@ export const TILE_SIZES: Record<TileSizeName, TileSize> = {
     '4x4': { name: '4x4', width: 4, height: 4, label: 'Large Square' },
     '6x1': { name: '6x1', width: 6, height: 1, label: 'Full Width Header' },
     '6x2': { name: '6x2', width: 6, height: 2, label: 'Full Width' },
-    '6x4': { name: '6x4', width: 6, height: 4, label: 'Hero' },
+    '6x2-gallery': { name: '6x2-gallery', width: 6, height: 2, label: 'Gallery' },
+    '6x4': { name: '6x4', width: 6, height: 4, label: 'Hero Gallery' },
+    '6x4-var2': { name: '6x4-var2', width: 6, height: 4, label: 'Hero Gallery V2' },
 } as const;
 
 export const DEFAULT_TILE_SIZE = TILE_SIZES['1x1'];
