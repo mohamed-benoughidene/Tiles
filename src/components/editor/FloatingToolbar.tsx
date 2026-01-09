@@ -43,14 +43,7 @@ export function FloatingToolbar({ onAddTile }: FloatingToolbarProps) {
                     <span className="material-symbols-outlined text-[18px]">title</span>
                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Text</span>
                 </button>
-                <button
-                    onClick={() => onAddTile(TILE_SIZES['6x4'], 'note')}
-                    className="group w-8 h-8 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shrink-0 relative"
-                    title="Add Note"
-                >
-                    <span className="material-symbols-outlined text-[18px]">notes</span>
-                    <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Note</span>
-                </button>
+
 
 
                 <div className="w-px h-5 bg-zinc-200 dark:bg-zinc-800 mx-1 shrink-0"></div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 export function ProductTile2x2() {
     return (
-        <div className="relative w-full h-full bg-[#1C1C1E] overflow-hidden shadow-sm ring-1 ring-white/10 flex flex-col rounded-[22%]">
+        <div className="relative w-full h-full bg-[#1C1C1E] overflow-hidden shadow-sm border border-white/10 flex flex-col rounded-[2rem]">
             {/* Background Accent (Subtle Gradient) */}
             <div className="absolute top-0 right-0 w-48 h-48 bg-[#1313ec]/20 rounded-full blur-[60px] translate-x-12 -translate-y-12 pointer-events-none opacity-60"></div>
 
@@ -40,8 +40,7 @@ export function ProductTile2x2() {
                 </div>
             </div>
 
-            {/* Inner Border Shine (Glass Effect) */}
-            <div className="absolute inset-0 rounded-[inherit] border border-white/10 pointer-events-none"></div>
+
         </div>
     );
 }

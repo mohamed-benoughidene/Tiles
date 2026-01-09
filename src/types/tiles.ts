@@ -25,3 +25,20 @@ export interface Tile {
         [key: string]: any;
     };
 }
+
+export interface PriceMenuItem {
+    id: string;
+    name: string;
+    price: string;
+    description?: string;
+    category: string;
+    image?: string;
+}
+
+export interface PriceMenuData {
+    title: string;
+    iconName: string;
+    categories: string[];
+    items: PriceMenuItem[];
+}
+

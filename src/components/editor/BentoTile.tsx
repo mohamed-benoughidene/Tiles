@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Tile, TileSize, TileSizeName } from '@/types/tiles';
 import { TILE_SIZES } from '@/lib/tileConstants';
 import { LinkTile } from "@/components/tiles/LinkTile";
-import { NoteTile } from "@/components/tiles/NoteTile";
+
 import { SocialGridTile } from "@/components/tiles/SocialGridTile";
 import { ProductTile } from "@/components/tiles/ProductTile";
 import { TextTile } from "@/components/tiles/TextTile";
@@ -167,8 +167,8 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                     onSelect(tile.id);
                 }}
             >
-                {/* Delete Button (Top Left) - Hide for LinkTile, NoteTile, SocialGridTile using their own */}
-                {tile.type !== 'link' && tile.type !== 'note' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
+                {/* Delete Button (Top Left) - Hide for LinkTile, SocialGridTile using their own */}
+                {tile.type !== 'link' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-3 -left-3 z-30">
                         <button
                             className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 rounded-lg p-1.5 shadow-sm transition-colors cursor-pointer"
@@ -246,18 +246,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                             onRemove={() => setIsDeleteDialogOpen(true)}
                         />
                     </div>
-                ) : tile.type === 'note' ? (
-                    <div className="w-full h-full">
-                        <NoteTile
-                            title={tile.content?.text}
-                            size={tile.size.name}
-                            onResize={(newSizeName) => {
-                                const newSizeObj = Object.values(TILE_SIZES).find(s => s.name === newSizeName);
-                                if (newSizeObj && onResize) onResize(tile.id, newSizeObj);
-                            }}
-                            onRemove={() => setIsDeleteDialogOpen(true)}
-                        />
-                    </div>
+
                 ) : tile.type === 'social' ? (
                     <div className="w-full h-full">
                         <SocialGridTile
@@ -361,8 +350,8 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                     </div>
                 )}
 
-                {/* Resize/Action Menu (Bottom Center) - Visible on Hover - Hide for LinkTile, NoteTile, SocialGridTile using their own toolbar */}
-                {tile.type !== 'link' && tile.type !== 'note' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
+                {/* Resize/Action Menu (Bottom Center) - Visible on Hover - Hide for LinkTile, SocialGridTile using their own toolbar */}
+                {tile.type !== 'link' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
                     <div
                         className={cn(
                             "absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center bg-zinc-950 dark:bg-black border border-zinc-800 rounded-xl px-2 py-1.5 gap-1.5 shadow-xl z-30 transition-all duration-200",
