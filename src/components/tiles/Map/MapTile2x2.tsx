@@ -1,6 +1,10 @@
 import React from 'react';
 
-export function MapTile2x2() {
+interface MapTile2x2Props {
+    readOnly?: boolean;
+}
+
+export function MapTile2x2({ readOnly }: MapTile2x2Props) {
     return (
         <div className="relative w-full h-full bg-zinc-100 dark:bg-[#1c1c1e] rounded-[1.75rem] shadow-sm border border-zinc-200/50 dark:border-white/10 overflow-hidden group cursor-pointer font-sans">
             {/* Map Background Image - Using a light map for light mode, generic for now */}

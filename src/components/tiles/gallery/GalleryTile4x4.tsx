@@ -31,10 +31,14 @@ const images = [
     },
 ];
 
-export function GalleryTile4x4() {
+interface GalleryTile4x4Props {
+    readOnly?: boolean;
+}
+
+export function GalleryTile4x4({ readOnly }: GalleryTile4x4Props) {
     return (
         <div className="h-full w-full overflow-hidden rounded-[2rem]">
-            <Carousel_002 className="h-full w-full max-w-none" images={images} loop />
+            <Carousel_002 className="h-full w-full max-w-none" images={images} loop readOnly={readOnly} />
         </div>
     );
 };
@@ -47,6 +51,7 @@ const Carousel_002 = ({
     loop = true,
     autoplay = false,
     spaceBetween = 40,
+    readOnly,
 }: {
     images: { src: string; alt: string }[];
     className?: string;
@@ -55,6 +60,7 @@ const Carousel_002 = ({
     loop?: boolean;
     autoplay?: boolean;
     spaceBetween?: number;
+    readOnly?: boolean;
 }) => {
     // Moved css to global or styled component strategy if possible, but keep inline for now as per stitch
     // But scoped style tag is fine

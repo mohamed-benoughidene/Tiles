@@ -13,6 +13,7 @@ interface LinkTileProps {
     size: "2x2" | "4x2" | "4x4" | "6x2" | "6x4" | string;
     onResize: (size: any) => void;
     onRemove: () => void;
+    readOnly?: boolean;
     data?: {
         title?: string;
         description?: string;
@@ -22,7 +23,7 @@ interface LinkTileProps {
     };
 }
 
-export function LinkTile({ title: initialTitle, size, onResize, onRemove, data }: LinkTileProps) {
+export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOnly, data }: LinkTileProps) {
     // Local state for the tile content
     const [content, setContent] = useState({
         title: data?.title || initialTitle || "Link Tile",
@@ -40,7 +41,7 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, data }
 
     // Determine which component to render
     const renderContent = () => {
-        const props = { ...content, onUpdate: handleUpdate };
+        const props = { ...content, onUpdate: handleUpdate, readOnly };
         switch (size) {
             case "2x2": return <LinkTile2x2 {...props} />;
             case "4x2": return <LinkTile4x2 {...props} />;
@@ -55,9 +56,8 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, data }
         <div
             className="group relative h-full w-full cursor-pointer"
             onClick={() => {
-                if (content.url && content.url !== '#') {
-                    // Optional: window.open(content.url, '_blank'); 
-                    // Since we are in editor, maybe just log or do nothing.
+                if (readOnly && content.url && content.url !== '#') {
+                    window.open(content.url, '_blank');
                 }
             }}
         >
@@ -65,55 +65,59 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, data }
             {renderContent()}
 
             {/* Action Buttons (Top Left) */}
-            <div className="absolute -top-3 -left-3 flex gap-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity scale-100 active:scale-95 duration-200">
-                {/* Delete Button */}
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        console.log('LinkTile: Delete button clicked');
-                        onRemove();
-                    }}
-                    onPointerDown={(e) => e.stopPropagation()}
-                    onMouseDown={(e) => e.stopPropagation()}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    className="w-8 h-8 rounded-lg bg-white dark:bg-zinc-950 text-zinc-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-center"
-                    title="Delete Tile"
-                >
-                    <span className="material-symbols-outlined text-[18px]">delete</span>
-                </button>
+            {!readOnly && (
+                <div className="absolute -top-3 -left-3 flex gap-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity scale-100 active:scale-95 duration-200">
+                    {/* Delete Button */}
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            console.log('LinkTile: Delete button clicked');
+                            onRemove();
+                        }}
+                        onPointerDown={(e) => e.stopPropagation()}
+                        onMouseDown={(e) => e.stopPropagation()}
+                        onTouchStart={(e) => e.stopPropagation()}
+                        className="w-8 h-8 rounded-lg bg-white dark:bg-zinc-950 text-zinc-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-center"
+                        title="Delete Tile"
+                    >
+                        <span className="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
 
-                {/* Link Settings Button */}
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setIsLinkModalOpen(true);
-                    }}
-                    onPointerDown={(e) => e.stopPropagation()}
-                    onMouseDown={(e) => e.stopPropagation()}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    className="w-8 h-8 rounded-lg bg-white dark:bg-zinc-950 text-zinc-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-center"
-                    title="Edit Link URL"
-                >
-                    <span className="material-symbols-outlined text-[18px]">link</span>
-                </button>
-            </div>
+                    {/* Link Settings Button */}
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setIsLinkModalOpen(true);
+                        }}
+                        onPointerDown={(e) => e.stopPropagation()}
+                        onMouseDown={(e) => e.stopPropagation()}
+                        onTouchStart={(e) => e.stopPropagation()}
+                        className="w-8 h-8 rounded-lg bg-white dark:bg-zinc-950 text-zinc-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-center"
+                        title="Edit Link URL"
+                    >
+                        <span className="material-symbols-outlined text-[18px]">link</span>
+                    </button>
+                </div>
+            )}
 
             {/* Toolbar (Pop-out Bottom Center) */}
-            <div
-                className="absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none group-hover:pointer-events-auto"
-                onPointerDown={(e) => e.stopPropagation()}
-                onMouseDown={(e) => e.stopPropagation()}
-                onTouchStart={(e) => e.stopPropagation()}
-            >
-                <TileToolbar
-                    currentSize={size}
-                    onResize={(s) => {
-                        console.log('LinkTile: Toolbar resize triggered with:', s);
-                        onResize(s);
-                    }}
-                    allowedSizes={["2x2", "4x2", "4x4", "6x2", "6x4"]}
-                />
-            </div>
+            {!readOnly && (
+                <div
+                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none group-hover:pointer-events-auto"
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                >
+                    <TileToolbar
+                        currentSize={size}
+                        onResize={(s) => {
+                            console.log('LinkTile: Toolbar resize triggered with:', s);
+                            onResize(s);
+                        }}
+                        allowedSizes={["2x2", "4x2", "4x4", "6x2", "6x4"]}
+                    />
+                </div>
+            )}
 
             <LinkSetupModal
                 isOpen={isLinkModalOpen}

@@ -18,9 +18,11 @@ import {
 interface EditorHeaderProps {
     viewMode: "desktop" | "mobile";
     setViewMode: (mode: "desktop" | "mobile") => void;
+    isPreview: boolean;
+    setIsPreview: (isPreview: boolean) => void;
 }
 
-export function EditorHeader({ viewMode, setViewMode }: EditorHeaderProps) {
+export function EditorHeader({ viewMode, setViewMode, isPreview, setIsPreview }: EditorHeaderProps) {
     return (
         <header className="h-14 absolute top-0 w-full bg-white/30 dark:bg-black/30 backdrop-blur-[2px] flex items-center justify-between px-4 shrink-0 z-50 transition-all supports-[backdrop-filter]:bg-white/20 dark:supports-[backdrop-filter]:bg-black/20">
             <div className="flex items-center gap-4">
@@ -141,8 +143,22 @@ export function EditorHeader({ viewMode, setViewMode }: EditorHeaderProps) {
                     </TooltipProvider>
                 </div>
 
-                <button className="h-8 px-4 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-colors shadow-sm cursor-pointer">
-                    Preview
+                <button
+                    onClick={() => setIsPreview(!isPreview)}
+                    className={`h-8 px-4 rounded-md border text-xs font-medium transition-colors shadow-sm cursor-pointer flex items-center gap-2 ${
+                        isPreview
+                        ? "border-zinc-800 bg-zinc-900 text-white hover:bg-zinc-800 dark:border-zinc-200 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
+                        : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    }`}
+                >
+                    {isPreview ? (
+                        <>
+                            <span className="material-symbols-outlined text-[16px]">edit</span>
+                            Back to Editor
+                        </>
+                    ) : (
+                        "Preview"
+                    )}
                 </button>
             </div>
         </header>

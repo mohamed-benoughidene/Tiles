@@ -22,9 +22,10 @@ interface BentoTileProps {
     onResize?: (id: string, size: TileSize) => void;
     onDelete?: (id: string) => void;
     isOverlay?: boolean;
+    readOnly?: boolean;
 }
 
-export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOverlay }: BentoTileProps) {
+export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOverlay, readOnly }: BentoTileProps) {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const dragTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const isDraggingRef = useRef(false);
@@ -37,6 +38,8 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
     }, []);
 
     const handleMouseDown = (e: React.MouseEvent) => {
+        if (readOnly) return;
+
         // If clicking on a button or interactive element, let it function normally and don't drag
         if ((e.target as HTMLElement).closest('button, input, textarea, [contenteditable], .no-drag')) {
             return;
@@ -67,6 +70,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
     };
 
     const handleMouseUp = () => {
+        if (readOnly) return;
         if (dragTimeoutRef.current) {
             clearTimeout(dragTimeoutRef.current);
             dragTimeoutRef.current = null;
@@ -75,6 +79,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
+        if (readOnly) return;
         // If we move significantly before the timer fires, cancel the drag wait (it's a click/select)
         // But wait, if it's a drag intention, we must hold STILL for 0.5s?
         // Usually "hold to drag" allows small movement, but let's be strict to prevent accidental drags.
@@ -146,29 +151,31 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.2 }}
                 className={cn(
-                    "relative rounded-[2rem] h-full transition-colors duration-200 cursor-grab active:cursor-grabbing group bento-tile-content hover:z-[60]",
-                    isSelected
+                    "relative rounded-[2rem] h-full transition-colors duration-200 bento-tile-content",
+                    readOnly ? "" : "cursor-grab active:cursor-grabbing group hover:z-[60]",
+                    isSelected && !readOnly
                         ? cn(
                             "z-20",
                             tile.type === 'placeholder' ? "bg-transparent" : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map' || tile.type === 'gallery' ? "bg-transparent border-transparent" : "bg-white dark:bg-zinc-900")
                         )
                         : tile.type === 'placeholder'
-                            ? "border-2 border-dashed border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 z-10 bg-transparent"
+                            ? "border-2 border-dashed border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 z-10 bg-transparent " + (readOnly ? "cursor-default hover:border-zinc-200 dark:hover:border-zinc-800 hover:bg-transparent dark:hover:bg-transparent" : "")
                             : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map' || tile.type === 'gallery'
                                 ? "z-10 bg-transparent" // LinkTile AND TextTile AND PriceMenuTile AND MapTile AND GalleryTile handle their own bg/border
-                                : "border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md z-10 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700"),
+                                : "border border-zinc-200 dark:border-zinc-800 shadow-sm z-10 bg-white dark:bg-zinc-900 " + (readOnly ? "" : "hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700")),
                 )}
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
                 onMouseMove={handleMouseMove}
                 onClick={(e) => {
+                    if (readOnly) return;
                     e.stopPropagation();
                     onSelect(tile.id);
                 }}
             >
                 {/* Delete Button (Top Left) - Hide for LinkTile, SocialGridTile using their own */}
-                {tile.type !== 'link' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
+                {tile.type !== 'link' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && !readOnly && (
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-3 -left-3 z-30">
                         <button
                             className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 rounded-lg p-1.5 shadow-sm transition-colors cursor-pointer"
@@ -224,6 +231,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                         <LinkTile
                             title={tile.content?.text || "New Link"}
                             size={tile.size.name}
+                            readOnly={readOnly}
                             onResize={(newSizeName) => {
                                 // Need to map size string back to TileSize object
                                 // We can use TILE_SIZES from lib/tileConstants
@@ -351,7 +359,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                 )}
 
                 {/* Resize/Action Menu (Bottom Center) - Visible on Hover - Hide for LinkTile, SocialGridTile using their own toolbar */}
-                {tile.type !== 'link' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && (
+                {tile.type !== 'link' && tile.type !== 'social' && tile.type !== 'product' && tile.type !== 'gallery' && tile.type !== 'text' && tile.type !== 'price-menu' && tile.type !== 'map' && tile.type !== 'video' && !readOnly && (
                     <div
                         className={cn(
                             "absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center bg-zinc-950 dark:bg-black border border-zinc-800 rounded-xl px-2 py-1.5 gap-1.5 shadow-xl z-30 transition-all duration-200",

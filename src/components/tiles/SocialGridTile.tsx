@@ -2,7 +2,8 @@ import React from 'react';
 import { TileSizeName, TileSize } from '@/types/tiles';
 import { SocialGridTile2x2 } from './social/SocialGridTile2x2';
 import { SocialGridTile6x2 } from './social/SocialGridTile6x2';
-import { SocialSetupModal, SocialProfile } from '@/components/modals/SocialSetupModal';
+import { SocialSetupModal } from '@/components/modals/SocialSetupModal';
+import { SocialProfile } from '@/lib/social-platforms';
 import { TileToolbar } from '@/components/editor/TileToolbar';
 
 interface SocialGridTileProps {

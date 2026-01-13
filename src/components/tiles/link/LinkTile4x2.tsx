@@ -8,9 +8,10 @@ interface LinkTile4x2Props {
     subtext: string;
     image: string;
     onUpdate: (data: any) => void;
+    readOnly?: boolean;
 }
 
-export function LinkTile4x2({ title, subtext, image, onUpdate }: LinkTile4x2Props) {
+export function LinkTile4x2({ title, subtext, image, onUpdate, readOnly }: LinkTile4x2Props) {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,27 +26,31 @@ export function LinkTile4x2({ title, subtext, image, onUpdate }: LinkTile4x2Prop
         <div className="group relative h-full w-full bg-white dark:bg-[#1c1c1e] rounded-[1.375rem] shadow-sm border border-zinc-200 dark:border-white/10 overflow-hidden cursor-pointer transition-transform hover:scale-[1.02]">
             <div className="flex items-center h-full p-3 gap-4">
                 {/* Thumbnail */}
-                <div className="relative shrink-0 w-[220px] h-full rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 shadow-sm ring-1 ring-black/5 dark:ring-white/5 group/image">
+                <div className="relative shrink-0 w-1/2 sm:w-[220px] h-full rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 shadow-sm ring-1 ring-black/5 dark:ring-white/5 group/image">
                     <div className="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110 duration-700 ease-out" style={{ backgroundImage: `url('${image}')` }}></div>
 
                     {/* Image Edit Overlay */}
-                    <div
-                        className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity cursor-pointer z-10"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            fileInputRef.current?.click();
-                        }}
-                    >
-                        <span className="material-symbols-outlined text-white text-[24px]">edit</span>
-                    </div>
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        className="hidden"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    {!readOnly && (
+                        <>
+                            <div
+                                className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover/image:opacity-100 transition-opacity cursor-pointer z-10"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    fileInputRef.current?.click();
+                                }}
+                            >
+                                <span className="material-symbols-outlined text-white text-[24px]">edit</span>
+                            </div>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                className="hidden"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                onClick={(e) => e.stopPropagation()}
+                            />
+                        </>
+                    )}
                 </div>
 
                 {/* Text Content */}
@@ -55,12 +60,14 @@ export function LinkTile4x2({ title, subtext, image, onUpdate }: LinkTile4x2Prop
                         onSave={(val) => onUpdate({ title: val })}
                         className="text-[17px] font-bold leading-[1.3] text-zinc-900 dark:text-white line-clamp-2 mb-1"
                         inputClassName="text-[17px] font-bold"
+                        disabled={readOnly}
                     />
                     <InlineEdit
                         value={subtext}
                         onSave={(val) => onUpdate({ subtext: val })}
                         className="text-[13px] font-medium text-zinc-500 dark:text-zinc-400 line-clamp-1 flex items-center gap-1"
                         inputClassName="text-[13px] font-medium"
+                        disabled={readOnly}
                     />
                 </div>
 

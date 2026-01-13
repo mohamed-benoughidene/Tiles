@@ -8,11 +8,17 @@ import { useBentoGridState } from "@/hooks/useBentoGridState";
 
 export default function EditorPage() {
     const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
+    const [isPreview, setIsPreview] = useState(false);
     const gridState = useBentoGridState();
 
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-50 h-screen flex flex-col overflow-hidden antialiased selection:bg-indigo-100 selection:text-indigo-900 dark:selection:bg-indigo-900 dark:selection:text-indigo-100">
-            <EditorHeader viewMode={viewMode} setViewMode={setViewMode} />
+            <EditorHeader
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                isPreview={isPreview}
+                setIsPreview={setIsPreview}
+            />
 
             <main className="flex-1 flex overflow-hidden relative">
                 <Canvas
@@ -25,8 +31,9 @@ export default function EditorPage() {
                     onReorder={gridState.reorderTiles}
                     onResize={gridState.updateTileSize}
                     onDelete={gridState.removeTile}
+                    readOnly={isPreview}
                 />
-                <FloatingToolbar onAddTile={gridState.addTile} />
+                {!isPreview && <FloatingToolbar onAddTile={gridState.addTile} />}
             </main>
         </div>
     );

@@ -8,9 +8,10 @@ import { InlineEdit } from "@/components/ui/inline-edit";
 
 interface ProfileSectionProps {
     viewMode: "desktop" | "mobile";
+    readOnly?: boolean;
 }
 
-export function ProfileSection({ viewMode }: ProfileSectionProps) {
+export function ProfileSection({ viewMode, readOnly }: ProfileSectionProps) {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -32,65 +33,70 @@ export function ProfileSection({ viewMode }: ProfileSectionProps) {
                 variant="canvas"
                 value={avatarUrl}
                 onChange={(file) => setAvatarUrl(URL.createObjectURL(file))}
-                className="mb-8"
+                className={`mb-8 ${readOnly ? "cursor-default" : ""}`}
+                disabled={readOnly}
             />
 
             <InlineEdit
                 value={name}
                 onSave={setName}
-                className={`text-5xl font-bold text-zinc-900 dark:text-white tracking-tighter mb-2 block ${textCenterAlign}`}
+                className={`text-5xl font-bold text-zinc-900 dark:text-white tracking-tighter mb-2 block ${textCenterAlign} ${readOnly ? "cursor-default opacity-100 hover:bg-transparent" : ""}`}
                 inputClassName={`text-5xl font-bold tracking-tighter h-auto py-2 mb-2 ${inputAlign}`}
                 placeholder="Your Name"
+                disabled={readOnly}
             />
 
             <InlineEdit
                 value={bio}
                 onSave={setBio}
-                className={`text-xl text-zinc-400 font-medium tracking-tight mb-8 block ${textCenterAlign}`}
+                className={`text-xl text-zinc-400 font-medium tracking-tight mb-8 block ${textCenterAlign} ${readOnly ? "cursor-default opacity-100 hover:bg-transparent" : ""}`}
                 inputClassName={`text-xl font-medium tracking-tight h-auto py-1 mb-8 ${inputAlign}`}
                 placeholder="Add a bio..."
+                disabled={readOnly}
             />
 
-            <div className={`flex items-center gap-6 mt-4 ${viewMode === 'mobile' ? 'pb-4' : ''}`}>
-                <span
-                    className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
-                    onClick={() => { /* TODO: Open Theme/Palette Modal */ }}
-                >
-                    palette
-                </span>
-                <span
-                    className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
-                    onClick={() => setIsSettingsOpen(true)}
-                >
-                    tune
-                </span>
-                <div className="relative flex items-center group">
-                    <label className="relative inline-flex items-center cursor-pointer" title="Toggle Page Visibility">
-                        <input
-                            type="checkbox"
-                            className="sr-only"
-                            checked={isLive}
-                            onChange={(e) => setIsLive(e.target.checked)}
-                        />
+            {!readOnly && (
+                <div className={`flex items-center gap-6 mt-4 ${viewMode === 'mobile' ? 'pb-4' : ''}`}>
+                    <span
+                        className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
+                        onClick={() => { /* TODO: Open Theme/Palette Modal */ }}
+                    >
+                        palette
+                    </span>
+                    <span
+                        className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
+                        onClick={() => setIsSettingsOpen(true)}
+                    >
+                        tune
+                    </span>
+                    <div className="relative flex items-center group">
+                        <label className="relative inline-flex items-center cursor-pointer" title="Toggle Page Visibility">
+                            <input
+                                type="checkbox"
+                                className="sr-only"
+                                checked={isLive}
+                                onChange={(e) => setIsLive(e.target.checked)}
+                            />
 
-                        {/* Track */}
-                        <div className={`w-14 h-8 rounded-full transition-colors relative shadow-inner border border-zinc-700 ${isLive ? 'bg-emerald-500 border-emerald-600' : 'bg-zinc-800'}`}>
-                            {/* Thumb Container */}
-                            <div className={`absolute top-0.5 left-0.5 bg-white rounded-full h-7 w-7 shadow-sm transition-transform duration-300 flex items-center justify-center ${isLive ? 'translate-x-6' : 'translate-x-0'}`}>
-                                {/* Icon: Visibility Off (Hidden) vs Globe (Public) */}
-                                <span className={`material-symbols-outlined text-[20px] text-zinc-500 absolute transition-opacity duration-300 ${isLive ? 'opacity-0' : 'opacity-100'}`}>visibility_off</span>
-                                <span className={`material-symbols-outlined text-[20px] text-emerald-600 absolute transition-opacity duration-300 ${isLive ? 'opacity-100' : 'opacity-0'}`}>public</span>
+                            {/* Track */}
+                            <div className={`w-14 h-8 rounded-full transition-colors relative shadow-inner border border-zinc-700 ${isLive ? 'bg-emerald-500 border-emerald-600' : 'bg-zinc-800'}`}>
+                                {/* Thumb Container */}
+                                <div className={`absolute top-0.5 left-0.5 bg-white rounded-full h-7 w-7 shadow-sm transition-transform duration-300 flex items-center justify-center ${isLive ? 'translate-x-6' : 'translate-x-0'}`}>
+                                    {/* Icon: Visibility Off (Hidden) vs Globe (Public) */}
+                                    <span className={`material-symbols-outlined text-[20px] text-zinc-500 absolute transition-opacity duration-300 ${isLive ? 'opacity-0' : 'opacity-100'}`}>visibility_off</span>
+                                    <span className={`material-symbols-outlined text-[20px] text-emerald-600 absolute transition-opacity duration-300 ${isLive ? 'opacity-100' : 'opacity-0'}`}>public</span>
+                                </div>
                             </div>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
+                    <span
+                        className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
+                        onClick={() => setIsFeedbackOpen(true)}
+                    >
+                        chat
+                    </span>
                 </div>
-                <span
-                    className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
-                    onClick={() => setIsFeedbackOpen(true)}
-                >
-                    chat
-                </span>
-            </div>
+            )}
 
             <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
             <HelpFeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />

@@ -23,6 +23,7 @@ interface BentoGridProps {
     onDelete: (id: string) => void;
     // Compatibility props
     onReorder: (oldIndex: number, newIndex: number) => void;
+    readOnly?: boolean;
 }
 
 export function BentoGrid({
@@ -32,8 +33,11 @@ export function BentoGrid({
     selectedTileId,
     onSelectTile,
     onResize,
-    onDelete
+    onDelete,
+    readOnly
 }: BentoGridProps) {
+    const visibleTiles = readOnly ? tiles.filter(tile => tile.type !== 'placeholder') : tiles;
+
     return (
         <div className="w-full max-w-4xl mx-auto p-4">
             <style jsx global>{`
@@ -74,20 +78,21 @@ export function BentoGrid({
                 rowHeight={100} // Base row height
                 margin={[BENTO_CONFIG.gap, BENTO_CONFIG.gap]}
                 containerPadding={[0, 0]}
-                isDraggable={true}
+                isDraggable={!readOnly}
                 isResizable={false} // We handle resize via our custom menu for now conform to "Bento" sizes
                 onLayoutChange={(layout: any[], allLayouts: any) => onLayoutChange(layout, allLayouts)}
 
                 draggableCancel=".no-drag" // Allow dragging everywhere except elements with .no-drag class
             >
-                {tiles.map((tile) => (
-                    <div key={tile.id} className="hover:!z-[60]">
+                {visibleTiles.map((tile) => (
+                    <div key={tile.id} className={readOnly ? "pointer-events-auto" : "hover:!z-[60]"}>
                         <BentoTile
                             tile={tile}
                             isSelected={selectedTileId === tile.id}
                             onSelect={onSelectTile}
                             onResize={onResize}
                             onDelete={onDelete}
+                            readOnly={readOnly}
                         />
                     </div>
                 ))}
