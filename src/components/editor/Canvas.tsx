@@ -19,9 +19,10 @@ interface CanvasProps {
     onReorder: (oldIndex: number, newIndex: number) => void;
     onResize: (id: string, size: TileSize) => void;
     onDelete: (id: string) => void;
+    readOnly?: boolean;
 }
 
-export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile, layouts, onLayoutChange, onReorder, onResize, onDelete }: CanvasProps) {
+export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile, layouts, onLayoutChange, onReorder, onResize, onDelete, readOnly }: CanvasProps) {
     return (
         <section className={`w-full h-[100vh] bg-zinc-50 dark:bg-black relative flex flex-col items-center overflow-hidden transition-all duration-300 ${viewMode === "mobile" ? "py-8" : ""}`}>
             {/* Background Pattern */}
@@ -37,7 +38,7 @@ export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile
 
                     {/* Content Wrapper for Mobile Mode to ensure padding inside phone frame */}
                     <div className={`${viewMode === "mobile" ? "p-6 min-h-full bg-zinc-50 dark:bg-black flex flex-col" : "contents"}`}>
-                        <ProfileSection viewMode={viewMode} />
+                        <ProfileSection viewMode={viewMode} readOnly={readOnly} />
                         <BentoGrid
                             tiles={tiles}
                             selectedTileId={selectedTileId}
@@ -47,6 +48,7 @@ export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile
                             onReorder={onReorder}
                             onResize={onResize}
                             onDelete={onDelete}
+                            readOnly={readOnly}
                         />
                     </div>
 
