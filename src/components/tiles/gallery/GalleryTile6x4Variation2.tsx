@@ -31,10 +31,14 @@ const images = [
     },
 ];
 
-export function GalleryTile6x4Variation2() {
+interface GalleryTile6x4Variation2Props {
+    readOnly?: boolean;
+}
+
+export function GalleryTile6x4Variation2({ readOnly }: GalleryTile6x4Variation2Props) {
     return (
         <div className="h-full w-full overflow-hidden rounded-[2rem]">
-            <Carousel_005 className="h-full w-full max-w-none px-0" images={images} autoplay={false} showPagination loop />
+            <Carousel_005 className="h-full w-full max-w-none px-0" images={images} autoplay={false} showPagination loop readOnly={readOnly} />
         </div>
     );
 };
@@ -47,6 +51,7 @@ const Carousel_005 = ({
     loop = true,
     autoplay = false,
     spaceBetween = 0,
+    readOnly,
 }: {
     images: { src: string; alt: string }[];
     className?: string;
@@ -55,11 +60,12 @@ const Carousel_005 = ({
     loop?: boolean;
     autoplay?: boolean;
     spaceBetween?: number;
+    readOnly?: boolean;
 }) => {
     const css = `
   .Carousal_005 {
     width: 100%;
-    height: 440px;
+    height: 100%;
     padding-bottom: 50px !important;
     overflow: visible !important;
   }
