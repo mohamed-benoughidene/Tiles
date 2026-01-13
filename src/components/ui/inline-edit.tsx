@@ -111,7 +111,7 @@ export function InlineEdit({
             role="button"
             className={cn(
                 "cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded px-1 -ml-1 transition-colors border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md break-words whitespace-pre-wrap max-w-full block",
-                disabled && "cursor-not-allowed hover:bg-transparent hover:border-transparent opacity-50",
+                disabled && "cursor-default hover:bg-transparent hover:border-transparent",
                 className
             )}
             aria-label={description || "Click to edit"}

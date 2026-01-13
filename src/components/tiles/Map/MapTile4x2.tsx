@@ -1,10 +1,14 @@
 import React from 'react';
 
-export function MapTile4x2() {
+interface MapTile4x2Props {
+    readOnly?: boolean;
+}
+
+export function MapTile4x2({ readOnly }: MapTile4x2Props) {
     return (
-        <div className="relative w-full h-full bg-zinc-100 dark:bg-[#1c1c1e] rounded-[1.75rem] shadow-sm border border-zinc-200/50 dark:border-white/10 overflow-hidden group cursor-pointer flex font-sans">
+        <div className="relative w-full h-full bg-zinc-100 dark:bg-[#1c1c1e] rounded-[1.75rem] shadow-sm border border-zinc-200/50 dark:border-white/10 overflow-hidden group cursor-pointer flex flex-col sm:flex-row font-sans">
             {/* Map Section */}
-            <div className="relative flex-1 h-full overflow-hidden">
+            <div className="relative flex-1 h-full min-h-0 overflow-hidden">
                 <img
                     src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800&h=400"
                     alt="Map Location"
@@ -30,7 +34,7 @@ export function MapTile4x2() {
             </div>
 
             {/* Side Panel (Navigation/Status) - for that dashboard feel */}
-            <div className="w-[120px] bg-white dark:bg-[#1c1c1e] border-l border-zinc-200/50 dark:border-white/5 flex flex-col p-3 gap-3 shrink-0 z-10">
+            <div className="w-full sm:w-[120px] h-auto sm:h-full bg-white dark:bg-[#1c1c1e] border-t sm:border-t-0 sm:border-l border-zinc-200/50 dark:border-white/5 flex sm:flex-col items-center sm:items-stretch justify-between sm:justify-start p-3 gap-3 shrink-0 z-10">
                 {/* Destination Info */}
                 <div className="flex flex-col gap-1">
                     <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Destination</p>

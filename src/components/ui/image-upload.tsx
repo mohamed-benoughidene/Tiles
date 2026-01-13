@@ -99,10 +99,12 @@ export function ImageUpload({
                     onDragLeave={onDragLeave}
                     onDrop={onDrop}
                     className={cn(
-                        "w-48 h-48 sm:w-64 sm:h-64 dashed-circle rounded-full flex items-center justify-center cursor-pointer group hover:bg-zinc-100/50 dark:hover:bg-zinc-800/20 transition-colors relative border-2 border-dashed shrink-0 overflow-hidden",
-                        isDragging
+                        "w-48 h-48 sm:w-64 sm:h-64 rounded-full flex items-center justify-center relative shrink-0 overflow-hidden transition-colors",
+                        !disabled && "dashed-circle cursor-pointer group hover:bg-zinc-100/50 dark:hover:bg-zinc-800/20 border-2 border-dashed",
+                        !disabled && isDragging
                             ? "border-indigo-500 bg-indigo-50/50 dark:bg-indigo-900/20"
-                            : "border-zinc-200 dark:border-zinc-800",
+                            : !disabled && "border-zinc-200 dark:border-zinc-800",
+                        disabled && "bg-zinc-100 dark:bg-zinc-800",
                         className
                     )}
                 >
@@ -113,23 +115,31 @@ export function ImageUpload({
                                 alt="Avatar"
                                 className="w-full h-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="material-symbols-outlined text-white text-3xl">
-                                    edit
-                                </span>
-                            </div>
+                            {!disabled && (
+                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span className="material-symbols-outlined text-white text-3xl">
+                                        edit
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center gap-2 group-hover:scale-105 transition-transform">
-                            <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-zinc-500 group-hover:text-indigo-600 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 transition-colors">
-                                <span className="material-symbols-outlined text-xl">
-                                    arrow_upward
+                        !disabled ? (
+                            <div className="flex flex-col items-center gap-2 group-hover:scale-105 transition-transform">
+                                <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-zinc-500 group-hover:text-indigo-600 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 transition-colors">
+                                    <span className="material-symbols-outlined text-xl">
+                                        arrow_upward
+                                    </span>
+                                </div>
+                                <span className="text-sm font-medium text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
+                                    Add Avatar
                                 </span>
                             </div>
-                            <span className="text-sm font-medium text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
-                                Add Avatar
+                        ) : (
+                            <span className="material-symbols-outlined text-zinc-300 dark:text-zinc-600 text-6xl">
+                                person
                             </span>
-                        </div>
+                        )
                     )}
                 </div>
             </>

@@ -41,7 +41,7 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
 
     // Determine which component to render
     const renderContent = () => {
-        const props = { ...content, onUpdate: handleUpdate };
+        const props = { ...content, onUpdate: handleUpdate, readOnly };
         switch (size) {
             case "2x2": return <LinkTile2x2 {...props} />;
             case "4x2": return <LinkTile4x2 {...props} />;

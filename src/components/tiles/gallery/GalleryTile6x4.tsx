@@ -41,10 +41,14 @@ const images = [
     },
 ];
 
-export function GalleryTile6x4() {
+interface GalleryTile6x4Props {
+    readOnly?: boolean;
+}
+
+export function GalleryTile6x4({ readOnly }: GalleryTile6x4Props) {
     return (
         <div className="h-full w-full overflow-hidden rounded-[2rem]">
-            <Carousel_001 className="h-full w-full" images={images} showPagination loop />
+            <Carousel_001 className="h-full w-full" images={images} showPagination loop readOnly={readOnly} />
         </div>
     );
 };
@@ -57,6 +61,7 @@ const Carousel_001 = ({
     loop = true,
     autoplay = false,
     spaceBetween = 40,
+    readOnly,
 }: {
     images: { src: string; alt: string }[];
     className?: string;
@@ -65,10 +70,12 @@ const Carousel_001 = ({
     loop?: boolean;
     autoplay?: boolean;
     spaceBetween?: number;
+    readOnly?: boolean;
 }) => {
     const css = `
   .Carousal_001 {
     padding-bottom: 50px !important;
+    height: 100% !important;
   }
   `;
     return (
@@ -97,7 +104,14 @@ const Carousel_001 = ({
                 grabCursor={true}
                 centeredSlides={true}
                 loop={loop}
-                slidesPerView={2.43}
+                breakpoints={{
+                    0: {
+                        slidesPerView: 1.5,
+                    },
+                    640: {
+                        slidesPerView: 2.43,
+                    },
+                }}
                 coverflowEffect={{
                     rotate: 0,
                     slideShadows: false,
