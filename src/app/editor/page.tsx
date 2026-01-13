@@ -5,10 +5,12 @@ import { EditorHeader } from "@/components/editor/EditorHeader";
 import { Canvas } from "@/components/editor/Canvas";
 import { FloatingToolbar } from "@/components/editor/FloatingToolbar";
 import { useBentoGridState } from "@/hooks/useBentoGridState";
+import { DeleteConfirmationModal } from "@/components/modals/DeleteConfirmationModal";
 
 export default function EditorPage() {
     const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
     const [isPreview, setIsPreview] = useState(false);
+    const [isClearModalOpen, setIsClearModalOpen] = useState(false);
     const gridState = useBentoGridState();
 
     return (
@@ -32,8 +34,18 @@ export default function EditorPage() {
                     onResize={gridState.updateTileSize}
                     onDelete={gridState.removeTile}
                     readOnly={isPreview}
+                    onRemoveEmpty={gridState.removeEmptyTiles}
+                    onClearAll={() => setIsClearModalOpen(true)}
                 />
                 {!isPreview && <FloatingToolbar onAddTile={gridState.addTile} />}
+
+                <DeleteConfirmationModal
+                    isOpen={isClearModalOpen}
+                    onClose={() => setIsClearModalOpen(false)}
+                    onConfirm={gridState.clearAllTiles}
+                    title="Clear Canvas?"
+                    description="Are you sure you want to remove ALL tiles? This action cannot be undone."
+                />
             </main>
         </div>
     );

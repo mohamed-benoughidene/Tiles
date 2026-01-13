@@ -1,26 +1,69 @@
 import { PriceMenuData } from '@/types/tiles';
 import { icons } from 'lucide-react';
 import { InlineEdit } from '@/components/ui/inline-edit';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
 interface PriceMenuTile4x4Props {
     data?: PriceMenuData;
     onTitleChange?: (newTitle: string) => void;
     onIconClick?: () => void;
+    readOnly?: boolean;
+    layout?: 'classic' | 'minimal';
 }
 
-export function PriceMenuTile4x4({ data, onTitleChange, onIconClick }: PriceMenuTile4x4Props) {
+export function PriceMenuTile4x4({ data, onTitleChange, onIconClick, readOnly, layout = 'classic' }: PriceMenuTile4x4Props) {
     const [isEditing, setIsEditing] = useState(false);
 
     if (!data) return null;
 
     const { title, iconName, categories, items } = data;
 
-    // Group items by category, matching the design which shows sections
-    // Filter to only categories that have items
+    // Group items by category
     const visibleCategories = categories
         .filter(cat => items.some(item => item.category === cat));
 
+    // MINIMAL LAYOUT (Simplified view, no colored header, cleaner lines)
+    if (layout === 'minimal') {
+        return (
+            <div className="relative w-full h-full bg-[#ffffff] dark:bg-[#1c1c1e] rounded-[1.75rem] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.4),0_0_10px_-2px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col border border-zinc-200/50 dark:border-white/10 group cursor-pointer duration-500">
+                <div className="px-6 pt-6 pb-2">
+                    <InlineEdit
+                        value={title}
+                        onSave={onTitleChange}
+                        disabled={readOnly}
+                        className="text-2xl font-bold text-zinc-900 dark:text-white"
+                        inputClassName="text-2xl font-bold bg-transparent border-none p-0 focus-visible:ring-0 w-full"
+                    />
+                </div>
+                <div className="flex-1 flex flex-col px-6 py-2 min-h-0 overflow-y-auto no-scrollbar gap-4">
+                    {visibleCategories.map((category) => {
+                        const categoryItems = items.filter(item => item.category === category);
+                        if (categoryItems.length === 0) return null;
+                        return (
+                            <div key={category} className="flex flex-col gap-1">
+                                <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1 mt-1">
+                                    {category}
+                                </h3>
+                                {categoryItems.map(item => (
+                                    <div key={item.id} className="flex items-center justify-between py-1 group/item hover:bg-zinc-50 dark:hover:bg-white/5 rounded px-1 -mx-1 transition-colors">
+                                        <span className="text-base text-zinc-800 dark:text-zinc-200 font-medium truncate pr-4">
+                                            {item.name}
+                                        </span>
+                                        <span className="text-sm text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
+                                            {item.price}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    }
+
+    // CLASSIC LAYOUT
     return (
         <div className="relative w-full h-full bg-[#ffffff] dark:bg-[#1c1c1e] rounded-[1.75rem] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.4),0_0_10px_-2px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col border border-zinc-200/50 dark:border-white/10 group cursor-pointer duration-500">
             {/* Widget Header */}
@@ -32,7 +75,11 @@ export function PriceMenuTile4x4({ data, onTitleChange, onIconClick }: PriceMenu
                             onSave={onTitleChange}
                             isEditing={isEditing}
                             onEditChange={setIsEditing}
-                            className="text-xl font-bold text-zinc-900 dark:text-white tracking-tight leading-tight w-full hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50 p-1 -ml-1 rounded"
+                            disabled={readOnly}
+                            className={cn(
+                                "text-xl font-bold text-zinc-900 dark:text-white tracking-tight leading-tight w-full p-1 -ml-1 rounded",
+                                !readOnly && "hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50"
+                            )}
                             inputClassName="text-xl font-bold bg-transparent border-none p-0 focus-visible:ring-0 w-full"
                         />
                     </div>
@@ -40,9 +87,9 @@ export function PriceMenuTile4x4({ data, onTitleChange, onIconClick }: PriceMenu
                 <div
                     onClick={(e) => {
                         e.stopPropagation();
-                        onIconClick?.();
+                        if (!readOnly) onIconClick?.();
                     }}
-                    className="w-8 h-8 rounded-full bg-[#1313ec]/10 dark:bg-[#1313ec]/20 flex items-center justify-center shrink-0 overflow-hidden cursor-pointer hover:bg-[#1313ec]/20 dark:hover:bg-[#1313ec]/30 transition-colors"
+                    className={`w-8 h-8 rounded-full bg-[#1313ec]/10 dark:bg-[#1313ec]/20 flex items-center justify-center shrink-0 overflow-hidden text-[#1313ec] ${readOnly ? '' : 'cursor-pointer hover:bg-[#1313ec]/20 dark:hover:bg-[#1313ec]/30 transition-colors'}`}
                 >
                     {(() => {
                         const Icon = icons[iconName as keyof typeof icons] as React.ElementType;

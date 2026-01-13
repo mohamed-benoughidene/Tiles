@@ -38,6 +38,14 @@ export function BentoGrid({
 }: BentoGridProps) {
     const visibleTiles = readOnly ? tiles.filter(tile => tile.type !== 'placeholder') : tiles;
 
+    // Force static (non-draggable/resizable) logic on layouts if read-only
+    const processedLayouts = readOnly
+        ? Object.keys(layouts).reduce((acc, key) => {
+            acc[key as keyof typeof layouts] = layouts[key as keyof typeof layouts].map(l => ({ ...l, static: true }));
+            return acc;
+        }, {} as typeof layouts)
+        : layouts;
+
     return (
         <div className="w-full max-w-4xl mx-auto p-4">
             <style jsx global>{`
@@ -72,9 +80,9 @@ export function BentoGrid({
 
             <ResponsiveGridLayout
                 className="layout"
-                layouts={layouts}
+                layouts={processedLayouts}
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-                cols={{ lg: 6, md: 6, sm: 6, xs: 4, xxs: 2 }} // Attempt 6 cols on larger mobile, fallback to 4/2 on tiny
+                cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 2 }} // Standard Bento: 4 cols desktop, 2 cols mobile
                 rowHeight={100} // Base row height
                 margin={[BENTO_CONFIG.gap, BENTO_CONFIG.gap]}
                 containerPadding={[0, 0]}

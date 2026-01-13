@@ -8,6 +8,7 @@ export const TILE_SIZES: Record<TileSizeName, TileSize> = {
     '1x2': { name: '1x2', width: 1, height: 2, label: 'Vertical' },
     '2x1': { name: '2x1', width: 2, height: 1, label: 'Horizontal' },
     '2x2': { name: '2x2', width: 2, height: 2, label: 'Large' },
+    '2x4': { name: '2x4', width: 2, height: 4, label: 'Vertical Bar' },
     '4x1': { name: '4x1', width: 4, height: 1, label: 'Wide Header' },
     '4x2': { name: '4x2', width: 4, height: 2, label: 'Wide Medium' },
     '4x4': { name: '4x4', width: 4, height: 4, label: 'Large Square' },

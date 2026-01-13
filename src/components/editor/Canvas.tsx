@@ -20,9 +20,11 @@ interface CanvasProps {
     onResize: (id: string, size: TileSize) => void;
     onDelete: (id: string) => void;
     readOnly?: boolean;
+    onRemoveEmpty?: () => void;
+    onClearAll?: () => void;
 }
 
-export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile, layouts, onLayoutChange, onReorder, onResize, onDelete, readOnly }: CanvasProps) {
+export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile, layouts, onLayoutChange, onReorder, onResize, onDelete, readOnly, onRemoveEmpty, onClearAll }: CanvasProps) {
     return (
         <section className={`w-full h-[100vh] bg-zinc-50 dark:bg-black relative flex flex-col items-center overflow-hidden transition-all duration-300 ${viewMode === "mobile" ? "py-8" : ""}`}>
             {/* Background Pattern */}
@@ -38,13 +40,18 @@ export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile
 
                     {/* Content Wrapper for Mobile Mode to ensure padding inside phone frame */}
                     <div className={`${viewMode === "mobile" ? "p-6 min-h-full bg-zinc-50 dark:bg-black flex flex-col" : "contents"}`}>
-                        <ProfileSection viewMode={viewMode} readOnly={readOnly} />
+                        <ProfileSection
+                            viewMode={viewMode}
+                            readOnly={readOnly}
+                            onRemoveEmpty={onRemoveEmpty}
+                            onClearAll={onClearAll}
+                        />
                         <BentoGrid
                             tiles={tiles}
                             selectedTileId={selectedTileId}
                             onSelectTile={onSelectTile}
                             layouts={layouts}
-                            onLayoutChange={onLayoutChange}
+                            onLayoutChange={readOnly ? () => { } : onLayoutChange}
                             onReorder={onReorder}
                             onResize={onResize}
                             onDelete={onDelete}

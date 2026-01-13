@@ -2,7 +2,7 @@ export const BENTO_CONFIG = {
     columns: {
         mobile: 2,
         tablet: 4,
-        desktop: 6,
+        desktop: 4,
     },
     gap: 16, // pixels
     cellAspectRatio: 1, // square base cells

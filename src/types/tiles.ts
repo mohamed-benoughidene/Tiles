@@ -1,4 +1,4 @@
-export type TileSizeName = '1x1' | '1x2' | '2x1' | '2x2' | '4x1' | '4x2' | '4x4' | '6x1' | '6x2' | '6x4' | '6x2-gallery' | '6x4-var2';
+export type TileSizeName = '1x1' | '1x2' | '2x1' | '2x2' | '2x4' | '4x1' | '4x2' | '4x4' | '6x1' | '6x2' | '6x4' | '6x2-gallery' | '6x4-var2';
 
 export interface TileSize {
     name: TileSizeName;

@@ -5,13 +5,21 @@ import { HelpFeedbackModal } from "@/components/editor/HelpFeedbackModal";
 import { SettingsModal } from "@/components/modals/SettingsModal";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { InlineEdit } from "@/components/ui/inline-edit";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ProfileSectionProps {
     viewMode: "desktop" | "mobile";
     readOnly?: boolean;
+    onRemoveEmpty?: () => void;
+    onClearAll?: () => void;
 }
 
-export function ProfileSection({ viewMode, readOnly }: ProfileSectionProps) {
+export function ProfileSection({ viewMode, readOnly, onRemoveEmpty, onClearAll }: ProfileSectionProps) {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -56,45 +64,110 @@ export function ProfileSection({ viewMode, readOnly }: ProfileSectionProps) {
             />
 
             {!readOnly && (
-                <div className={`flex items-center gap-6 mt-4 ${viewMode === 'mobile' ? 'pb-4' : ''}`}>
-                    <span
-                        className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
-                        onClick={() => { /* TODO: Open Theme/Palette Modal */ }}
-                    >
-                        palette
-                    </span>
-                    <span
-                        className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
-                        onClick={() => setIsSettingsOpen(true)}
-                    >
-                        tune
-                    </span>
-                    <div className="relative flex items-center group">
-                        <label className="relative inline-flex items-center cursor-pointer" title="Toggle Page Visibility">
-                            <input
-                                type="checkbox"
-                                className="sr-only"
-                                checked={isLive}
-                                onChange={(e) => setIsLive(e.target.checked)}
-                            />
+                <div className={`flex flex-col gap-4 mt-4 w-full items-center`}>
+                    {/* Tools Row */}
+                    <div className="flex items-center gap-1 p-1.5 bg-zinc-100 dark:bg-zinc-800/50 rounded-full border border-zinc-200 dark:border-zinc-800">
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-zinc-700 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-all"
+                                        onClick={() => { /* TODO: Open Theme/Palette Modal */ }}
+                                    >
+                                        <span className="material-symbols-outlined text-[20px]">palette</span>
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>Theme Settings</TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
 
-                            {/* Track */}
-                            <div className={`w-14 h-8 rounded-full transition-colors relative shadow-inner border border-zinc-700 ${isLive ? 'bg-emerald-500 border-emerald-600' : 'bg-zinc-800'}`}>
-                                {/* Thumb Container */}
-                                <div className={`absolute top-0.5 left-0.5 bg-white rounded-full h-7 w-7 shadow-sm transition-transform duration-300 flex items-center justify-center ${isLive ? 'translate-x-6' : 'translate-x-0'}`}>
-                                    {/* Icon: Visibility Off (Hidden) vs Globe (Public) */}
-                                    <span className={`material-symbols-outlined text-[20px] text-zinc-500 absolute transition-opacity duration-300 ${isLive ? 'opacity-0' : 'opacity-100'}`}>visibility_off</span>
-                                    <span className={`material-symbols-outlined text-[20px] text-emerald-600 absolute transition-opacity duration-300 ${isLive ? 'opacity-100' : 'opacity-0'}`}>public</span>
-                                </div>
-                            </div>
-                        </label>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-zinc-700 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-all"
+                                        onClick={() => setIsSettingsOpen(true)}
+                                    >
+                                        <span className="material-symbols-outlined text-[20px]">tune</span>
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>Settings</TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+
+                        <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
+
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-zinc-700 text-zinc-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition-all"
+                                        onClick={onRemoveEmpty}
+                                    >
+                                        <span className="material-symbols-outlined text-[20px]">cleaning_services</span>
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>Remove Empty Tiles</TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-zinc-700 text-zinc-500 hover:text-red-600 dark:text-zinc-400 dark:hover:text-red-400 transition-all"
+                                        onClick={onClearAll}
+                                    >
+                                        <span className="material-symbols-outlined text-[20px]">delete_forever</span>
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>Clear Canvas</TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+
+                        <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
+
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-zinc-700 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-all"
+                                        onClick={() => setIsFeedbackOpen(true)}
+                                    >
+                                        <span className="material-symbols-outlined text-[20px]">chat</span>
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>Feedback</TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                     </div>
-                    <span
-                        className="material-symbols-outlined text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer text-xl"
-                        onClick={() => setIsFeedbackOpen(true)}
-                    >
-                        chat
-                    </span>
+
+                    {/* Visibility Toggle */}
+                    <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/50 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors w-max">
+                        <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                            {isLive ? 'Public' : 'Private'}
+                        </span>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            className="sr-only"
+                                            checked={isLive}
+                                            onChange={(e) => setIsLive(e.target.checked)}
+                                        />
+                                        <div className={`w-10 h-6 rounded-full transition-colors relative shadow-inner ${isLive ? 'bg-emerald-500' : 'bg-zinc-300 dark:bg-zinc-700'}`}>
+                                            <div className={`absolute top-1 left-1 bg-white rounded-full h-4 w-4 shadow-sm transition-transform duration-200 ${isLive ? 'translate-x-4' : 'translate-x-0'}`}></div>
+                                        </div>
+                                    </label>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{isLive ? "Unpublish Page" : "Publish Page"}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </div>
                 </div>
             )}
 

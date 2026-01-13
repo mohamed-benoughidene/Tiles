@@ -152,7 +152,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                 transition={{ duration: 0.2 }}
                 className={cn(
                     "relative rounded-[2rem] h-full transition-colors duration-200 bento-tile-content",
-                    readOnly ? "" : "cursor-grab active:cursor-grabbing group hover:z-[60]",
+                    readOnly ? "no-drag" : "cursor-grab active:cursor-grabbing group hover:z-[60]",
                     isSelected && !readOnly
                         ? cn(
                             "z-20",
@@ -265,6 +265,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (newSizeObj && onResize) onResize(tile.id, newSizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            readOnly={readOnly}
                         />
                     </div>
                 ) : tile.type === 'product' ? (
@@ -277,6 +278,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
                             data={tile.content}
+                            readOnly={readOnly}
                         />
                     </div>
                 ) : tile.type === 'text' ? (
@@ -289,6 +291,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (onResize) onResize(id, sizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            readOnly={readOnly}
                         />
                     </div>
                 ) : tile.type === 'price-menu' ? (
@@ -301,6 +304,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (newSizeObj && onResize) onResize(tile.id, newSizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            readOnly={readOnly}
                         />
                     </div>
                 ) : tile.type === 'map' ? (
@@ -313,6 +317,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (newSizeObj && onResize) onResize(tile.id, newSizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            readOnly={readOnly}
                         />
                     </div>
                 ) : tile.type === 'video' ? (
@@ -326,6 +331,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (onResize) onResize(id, sizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            readOnly={readOnly}
                         />
                     </div>
                 ) : tile.type === 'gallery' ? (
@@ -337,6 +343,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (onResize) onResize(id, sizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            readOnly={readOnly}
                         />
                     </div>
                 ) : (
@@ -394,6 +401,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                             ))}
                     </div>
                 )}
+
             </motion.div>
 
             {/* Delete Confirmation Modal */}

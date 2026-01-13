@@ -142,6 +142,58 @@ export function useBentoGridState(initialTiles: Tile[] = []) {
         if (selectedTileId === id) setSelectedTileId(null);
     }, [selectedTileId]);
 
+    const removeEmptyTiles = useCallback(() => {
+        // Identify placeholder IDs first from current state setter to ensure consistency
+        setTiles(prev => {
+            const placeholderIds = prev.filter(t => t.type === 'placeholder').map(t => t.id);
+
+            // Side effect: Update layouts (ok in event handler, but here we are in setState callback?)
+            // No, setState callback should be pure. We should calculate IDs outside if possible, OR
+            // just use the functional update for layouts separately based on the same logic if we trust state sync.
+            // Since this is a batch update, let's do it properly.
+
+            // Actually, we can just filter tiles here and return.
+            // AND call setLayouts separately.
+            return prev.filter(t => t.type !== 'placeholder');
+        });
+
+        setLayouts(prev => {
+            // We need to know which ones were placeholders. 
+            // We can't access 'tiles' state inside this callback reliably if it's stale?
+            // But 'tiles' in the hook scope changes on every render.
+            // If we use useCallback with [tiles] dependency, it's fine.
+            // But let's just use the functional approach:
+            // Wait, we can't filter layouts by type because layout items don't have type.
+            // We MUST knowing the IDs.
+            // So we need to use the 'tiles' from state.
+
+            // To be safe, let's depend on 'tiles' in useCallback.
+            return prev; // Placeholder, real logic below
+        });
+    }, []);
+
+    // Better implementation of removeEmptyTiles that relies on current 'tiles' state
+    const removeEmptyTilesAction = useCallback(() => {
+        const placeholderIds = tiles.filter(t => t.type === 'placeholder').map(t => t.id);
+
+        setTiles(prev => prev.filter(t => !placeholderIds.includes(t.id)));
+        setLayouts(prev => ({
+            lg: prev.lg.filter(l => !placeholderIds.includes(l.i)),
+            md: prev.md.filter(l => !placeholderIds.includes(l.i)),
+            sm: prev.sm.filter(l => !placeholderIds.includes(l.i)),
+        }));
+
+        if (selectedTileId && placeholderIds.includes(selectedTileId)) {
+            setSelectedTileId(null);
+        }
+    }, [tiles, selectedTileId]);
+
+    const clearAllTiles = useCallback(() => {
+        setTiles([]);
+        setLayouts({ lg: [], md: [], sm: [] });
+        setSelectedTileId(null);
+    }, []);
+
     const updateTileSize = useCallback((id: string, newSize: TileSize) => {
         setTiles(prev => prev.map(t => t.id === id ? { ...t, size: newSize } : t));
 
@@ -162,6 +214,8 @@ export function useBentoGridState(initialTiles: Tile[] = []) {
         addTile,
         removeTile,
         updateTileSize,
+        removeEmptyTiles: removeEmptyTilesAction,
+        clearAllTiles,
         // Deprecated/Mapped for compatibility if needed, but RGL handles "move" implicitly
         reorderTiles: (oldIndex: number, newIndex: number) => { },
     };

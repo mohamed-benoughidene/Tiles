@@ -3,14 +3,14 @@ import { TileToolbar } from "@/components/editor/TileToolbar";
 import { LinkSetupModal } from "@/components/modals/LinkSetupModal";
 
 import { LinkTile2x2 } from "./link/LinkTile2x2";
+import { LinkTile2x4 } from "./link/LinkTile2x4";
 import { LinkTile4x2 } from "./link/LinkTile4x2";
 import { LinkTile4x4 } from "./link/LinkTile4x4";
-import { LinkTile6x2 } from "./link/LinkTile6x2";
-import { LinkTile6x4 } from "./link/LinkTile6x4";
+
 
 interface LinkTileProps {
     title: string;
-    size: "2x2" | "4x2" | "4x4" | "6x2" | "6x4" | string;
+    size: "2x2" | "2x4" | "4x2" | "4x4" | string;
     onResize: (size: any) => void;
     onRemove: () => void;
     readOnly?: boolean;
@@ -30,24 +30,31 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
         description: data?.description || "Description goes here...",
         subtext: data?.subtext || "Design Matters",
         image: data?.image || "https://lh3.googleusercontent.com/aida-public/AB6AXuBFAJalqElo677yC3IOxZHqHIaMZIRSr5-T6GODeiUwEyP54YefcG9Fz1MD_X1GapMitF7e_yAUo90BtUpnq0Vt1qVDVm0P1oMjMgNFAfFhfGx6pebRW-gY_q9uA2HvluYhwidx3Gl1LhI71UtuVTxEOdFmvcAM8PKI57IMCrrkcBxJC1XuNdO4d9BgFFA7n78roOZyg2TWqkyUaAQxG2kMmkZQfhqAdVQQCSTK27dhf9zVochEa5RvM8IteA4g4C5B2BFQPyXDUg",
-        url: data?.url || ""
+        url: data?.url || "",
+        layout: (data as any)?.layout || 'classic', // classic, cover, minimal
+        customIcon: (data as any)?.customIcon || '',
     });
 
     const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
 
     const handleUpdate = (updates: Partial<typeof content>) => {
-        setContent(prev => ({ ...prev, ...updates }));
+        console.log('LinkTile: handleUpdate called with:', updates);
+        setContent(prev => {
+            const next = { ...prev, ...updates };
+            console.log('LinkTile: New content state:', next);
+            return next;
+        });
     };
 
     // Determine which component to render
     const renderContent = () => {
         const props = { ...content, onUpdate: handleUpdate, readOnly };
         switch (size) {
+            case "1x2": return <LinkTile2x2 {...props} />;
             case "2x2": return <LinkTile2x2 {...props} />;
+            case "2x4": return <LinkTile2x4 {...props} />;
             case "4x2": return <LinkTile4x2 {...props} />;
             case "4x4": return <LinkTile4x4 {...props} />;
-            case "6x2": return <LinkTile6x2 {...props} />;
-            case "6x4": return <LinkTile6x4 {...props} />;
             default: return <LinkTile2x2 {...props} />; // Fallback
         }
     };
@@ -114,7 +121,61 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
                             console.log('LinkTile: Toolbar resize triggered with:', s);
                             onResize(s);
                         }}
-                        allowedSizes={["2x2", "4x2", "4x4", "6x2", "6x4"]}
+                        sizeOptions={[
+                            {
+                                id: '1x2',
+                                label: 'Tiny Square',
+                                icon: (
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            },
+                            {
+                                id: '2x2',
+                                label: 'Small Wide',
+                                icon: (
+                                    <svg width="18" height="12" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            },
+                            {
+                                id: '2x4',
+                                label: 'Vertical Bar',
+                                icon: (
+                                    <svg width="14" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="1" y="2" width="12" height="20" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            },
+                            {
+                                id: '4x2',
+                                label: 'Wide',
+                                icon: (
+                                    <svg width="18" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            },
+                            {
+                                id: '4x4',
+                                label: 'Large Square',
+                                icon: (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            }
+                        ]}
+                        allowedSizes={["1x2", "2x2", "2x4", "4x2", "4x4"]}
+                        currentLayout={content.layout}
+                        onLayoutChange={(layout) => handleUpdate({ layout })}
+                        layoutOptions={[
+                            { id: 'classic', icon: 'splitscreen_left', label: 'Classic' },
+                            { id: 'cover', icon: 'rectangle', label: 'Cover' },
+                            { id: 'minimal', icon: 'crop_square', label: 'Minimal' },
+                        ]}
                     />
                 </div>
             )}
@@ -123,7 +184,9 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
                 isOpen={isLinkModalOpen}
                 onClose={() => setIsLinkModalOpen(false)}
                 initialUrl={content.url}
-                onSave={(url) => handleUpdate({ url })}
+                initialLayout={content.layout}
+                initialCustomIcon={content.customIcon}
+                onSave={(updates: any) => handleUpdate(updates)}
             />
         </div>
     );
