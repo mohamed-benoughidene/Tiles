@@ -33,14 +33,14 @@ export function ProfileSection({ viewMode, readOnly }: ProfileSectionProps) {
                 variant="canvas"
                 value={avatarUrl}
                 onChange={(file) => setAvatarUrl(URL.createObjectURL(file))}
-                className="mb-8"
+                className={`mb-8 ${readOnly ? "cursor-default" : ""}`}
                 disabled={readOnly}
             />
 
             <InlineEdit
                 value={name}
                 onSave={setName}
-                className={`text-5xl font-bold text-zinc-900 dark:text-white tracking-tighter mb-2 block ${textCenterAlign}`}
+                className={`text-5xl font-bold text-zinc-900 dark:text-white tracking-tighter mb-2 block ${textCenterAlign} ${readOnly ? "cursor-default opacity-100 hover:bg-transparent" : ""}`}
                 inputClassName={`text-5xl font-bold tracking-tighter h-auto py-2 mb-2 ${inputAlign}`}
                 placeholder="Your Name"
                 disabled={readOnly}
@@ -49,7 +49,7 @@ export function ProfileSection({ viewMode, readOnly }: ProfileSectionProps) {
             <InlineEdit
                 value={bio}
                 onSave={setBio}
-                className={`text-xl text-zinc-400 font-medium tracking-tight mb-8 block ${textCenterAlign}`}
+                className={`text-xl text-zinc-400 font-medium tracking-tight mb-8 block ${textCenterAlign} ${readOnly ? "cursor-default opacity-100 hover:bg-transparent" : ""}`}
                 inputClassName={`text-xl font-medium tracking-tight h-auto py-1 mb-8 ${inputAlign}`}
                 placeholder="Add a bio..."
                 disabled={readOnly}
