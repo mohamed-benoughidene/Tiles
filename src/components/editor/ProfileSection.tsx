@@ -29,55 +29,31 @@ export function ProfileSection({ viewMode, readOnly }: ProfileSectionProps) {
 
     return (
         <div className={`shrink-0 flex flex-col pt-10 ${containerAlign} ${desktopFixedClasses} ${viewMode === 'mobile' ? 'pt-8 mb-8' : ''}`}>
-            {readOnly ? (
-                // Read-only Avatar
-                <div className={`mb-8 w-24 h-24 rounded-full overflow-hidden bg-zinc-100 dark:bg-zinc-800 ${viewMode === 'mobile' ? 'mx-auto' : 'mx-0'}`}>
-                    {avatarUrl ? (
-                        <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
-                    ) : (
-                        <div className="w-full h-full flex items-center justify-center text-zinc-300">
-                            <span className="material-symbols-outlined text-4xl">person</span>
-                        </div>
-                    )}
-                </div>
-            ) : (
-                <ImageUpload
-                    variant="canvas"
-                    value={avatarUrl}
-                    onChange={(file) => setAvatarUrl(URL.createObjectURL(file))}
-                    className="mb-8"
-                />
-            )}
+            <ImageUpload
+                variant="canvas"
+                value={avatarUrl}
+                onChange={(file) => setAvatarUrl(URL.createObjectURL(file))}
+                className="mb-8"
+                disabled={readOnly}
+            />
 
-            {readOnly ? (
-                // Read-only Name
-                <h1 className={`text-5xl font-bold text-zinc-900 dark:text-white tracking-tighter mb-2 block ${textCenterAlign}`}>
-                    {name}
-                </h1>
-            ) : (
-                <InlineEdit
-                    value={name}
-                    onSave={setName}
-                    className={`text-5xl font-bold text-zinc-900 dark:text-white tracking-tighter mb-2 block ${textCenterAlign}`}
-                    inputClassName={`text-5xl font-bold tracking-tighter h-auto py-2 mb-2 ${inputAlign}`}
-                    placeholder="Your Name"
-                />
-            )}
+            <InlineEdit
+                value={name}
+                onSave={setName}
+                className={`text-5xl font-bold text-zinc-900 dark:text-white tracking-tighter mb-2 block ${textCenterAlign}`}
+                inputClassName={`text-5xl font-bold tracking-tighter h-auto py-2 mb-2 ${inputAlign}`}
+                placeholder="Your Name"
+                disabled={readOnly}
+            />
 
-            {readOnly ? (
-                // Read-only Bio
-                <p className={`text-xl text-zinc-400 font-medium tracking-tight mb-8 block ${textCenterAlign}`}>
-                    {bio}
-                </p>
-            ) : (
-                <InlineEdit
-                    value={bio}
-                    onSave={setBio}
-                    className={`text-xl text-zinc-400 font-medium tracking-tight mb-8 block ${textCenterAlign}`}
-                    inputClassName={`text-xl font-medium tracking-tight h-auto py-1 mb-8 ${inputAlign}`}
-                    placeholder="Add a bio..."
-                />
-            )}
+            <InlineEdit
+                value={bio}
+                onSave={setBio}
+                className={`text-xl text-zinc-400 font-medium tracking-tight mb-8 block ${textCenterAlign}`}
+                inputClassName={`text-xl font-medium tracking-tight h-auto py-1 mb-8 ${inputAlign}`}
+                placeholder="Add a bio..."
+                disabled={readOnly}
+            />
 
             {!readOnly && (
                 <div className={`flex items-center gap-6 mt-4 ${viewMode === 'mobile' ? 'pb-4' : ''}`}>

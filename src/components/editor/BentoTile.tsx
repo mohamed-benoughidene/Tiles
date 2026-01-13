@@ -159,7 +159,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                             tile.type === 'placeholder' ? "bg-transparent" : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map' || tile.type === 'gallery' ? "bg-transparent border-transparent" : "bg-white dark:bg-zinc-900")
                         )
                         : tile.type === 'placeholder'
-                            ? (readOnly ? "hidden" : "border-2 border-dashed border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 z-10 bg-transparent")
+                            ? "border-2 border-dashed border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 z-10 bg-transparent " + (readOnly ? "cursor-default hover:border-zinc-200 dark:hover:border-zinc-800 hover:bg-transparent dark:hover:bg-transparent" : "")
                             : (tile.type === 'link' || tile.type === 'text' || tile.type === 'price-menu' || tile.type === 'map' || tile.type === 'gallery'
                                 ? "z-10 bg-transparent" // LinkTile AND TextTile AND PriceMenuTile AND MapTile AND GalleryTile handle their own bg/border
                                 : "border border-zinc-200 dark:border-zinc-800 shadow-sm z-10 bg-white dark:bg-zinc-900 " + (readOnly ? "" : "hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700")),
