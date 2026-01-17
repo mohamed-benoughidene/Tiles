@@ -11,7 +11,7 @@ interface ProductTile2x2Props {
 
 export function ProductTile2x2({ data, onUpdate, readOnly, layout = 'classic' }: ProductTile2x2Props) {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { title = 'Product', price = '$0.00', image } = data;
+    const { title = '', price = '', image } = data;
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -95,6 +95,7 @@ export function ProductTile2x2({ data, onUpdate, readOnly, layout = 'classic' }:
                         disabled={readOnly}
                         className="text-sm font-bold text-zinc-900 dark:text-white truncate"
                         inputClassName="text-sm font-bold bg-transparent dark:text-white w-full"
+                        placeholder="PRODUCT"
                     />
                     <InlineEdit
                         value={price}
@@ -102,6 +103,7 @@ export function ProductTile2x2({ data, onUpdate, readOnly, layout = 'classic' }:
                         disabled={readOnly}
                         className="text-xs font-medium text-zinc-500 dark:text-zinc-400"
                         inputClassName="text-xs font-medium bg-transparent dark:text-zinc-400 w-full"
+                        placeholder="$0.00"
                     />
                 </div>
                 <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleImageUpload} />
@@ -143,6 +145,7 @@ export function ProductTile2x2({ data, onUpdate, readOnly, layout = 'classic' }:
                         disabled={readOnly}
                         className="text-[17px] font-bold text-zinc-900 dark:text-white leading-tight truncate w-full"
                         inputClassName="text-[17px] font-bold bg-transparent dark:text-white w-full"
+                        placeholder="PRODUCT"
                     />
 
                     <div className="flex items-center justify-between mt-1">
@@ -154,6 +157,7 @@ export function ProductTile2x2({ data, onUpdate, readOnly, layout = 'classic' }:
                                 disabled={readOnly}
                                 className="text-zinc-900 dark:text-white text-base font-bold tracking-tight whitespace-nowrap"
                                 inputClassName="text-base font-bold bg-transparent dark:text-white w-20 whitespace-nowrap"
+                                placeholder="$0.00"
                             />
                         </div>
                         <div className="h-9 w-9 rounded-full bg-[#1313ec] hover:bg-[#0c0cb8] text-white flex items-center justify-center transition-all shadow-md active:scale-95 group/btn">

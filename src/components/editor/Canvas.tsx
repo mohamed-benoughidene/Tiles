@@ -22,9 +22,10 @@ interface CanvasProps {
     readOnly?: boolean;
     onRemoveEmpty?: () => void;
     onClearAll?: () => void;
+    onUpdateTile: (id: string, data: any) => void;
 }
 
-export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile, layouts, onLayoutChange, onReorder, onResize, onDelete, readOnly, onRemoveEmpty, onClearAll }: CanvasProps) {
+export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile, layouts, onLayoutChange, onReorder, onResize, onDelete, readOnly, onRemoveEmpty, onClearAll, onUpdateTile }: CanvasProps) {
     return (
         <section className={`w-full h-[100vh] bg-zinc-50 dark:bg-black relative flex flex-col items-center overflow-hidden transition-all duration-300 ${viewMode === "mobile" ? "py-8" : ""}`}>
             {/* Background Pattern */}
@@ -55,6 +56,7 @@ export function Canvas({ viewMode, children, tiles, selectedTileId, onSelectTile
                             onReorder={onReorder}
                             onResize={onResize}
                             onDelete={onDelete}
+                            onUpdateTile={onUpdateTile}
                             readOnly={readOnly}
                         />
                     </div>

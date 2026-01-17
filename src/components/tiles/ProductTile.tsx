@@ -28,10 +28,10 @@ interface ProductTileProps {
 export function ProductTile({ id = '', size, onResize, onRemove, data, readOnly = false }: ProductTileProps) {
     // Local state for identifying layout and content changes
     const [content, setContent] = useState({
-        title: data?.title || "Product Name",
-        price: data?.price || "$0.00",
+        title: data?.title || "",
+        price: data?.price || "",
         image: data?.image || "",
-        description: data?.description || "Product description goes here...",
+        description: data?.description || "",
         layout: (data as any)?.layout || 'classic',
     });
 
@@ -114,7 +114,7 @@ export function ProductTile({ id = '', size, onResize, onRemove, data, readOnly 
                         sizeOptions={[
                             {
                                 id: '1x2',
-                                label: 'Tiny Square',
+                                label: 'Tiny',
                                 icon: (
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -123,16 +123,16 @@ export function ProductTile({ id = '', size, onResize, onRemove, data, readOnly 
                             },
                             {
                                 id: '2x2',
-                                label: 'Small Wide',
+                                label: 'Square',
                                 icon: (
-                                    <svg width="18" height="12" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     </svg>
                                 )
                             },
                             {
                                 id: '2x4',
-                                label: 'Vertical Bar',
+                                label: 'Stack',
                                 icon: (
                                     <svg width="14" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="1" y="2" width="12" height="20" rx="2" ry="2"></rect>
@@ -141,7 +141,7 @@ export function ProductTile({ id = '', size, onResize, onRemove, data, readOnly 
                             },
                             {
                                 id: '4x2',
-                                label: 'Wide',
+                                label: 'Strip',
                                 icon: (
                                     <svg width="18" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
@@ -150,7 +150,7 @@ export function ProductTile({ id = '', size, onResize, onRemove, data, readOnly 
                             },
                             {
                                 id: '4x4',
-                                label: 'Large Square',
+                                label: 'Large',
                                 icon: (
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>

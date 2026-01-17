@@ -117,7 +117,7 @@ export function useBentoGridState(initialTiles: Tile[] = []) {
             size: size,
             position: { row: 0, col: 0 }, // Placeholder, RGL handles actual layout
             content: {
-                text: type === 'note' ? 'New Note' : type === 'text' ? 'Header' : type === 'price-menu' ? 'Pricing' : type === 'map' ? 'Map Location' : 'New Tile',
+                text: type === 'link' || type === 'social' || type === 'price-menu' || type === 'product' ? '' : type === 'note' ? 'New Note' : type === 'text' ? 'Header' : type === 'map' ? 'Map Location' : 'New Tile',
                 ...data // Spread data (like {variant: 'gallery'}) into content
             } // Default content based on type
         };
@@ -204,6 +204,10 @@ export function useBentoGridState(initialTiles: Tile[] = []) {
         }));
     }, []);
 
+    const updateTileContent = useCallback((id: string, newContent: any) => {
+        setTiles(prev => prev.map(t => t.id === id ? { ...t, content: { ...t.content, ...newContent } } : t));
+    }, []);
+
     return {
         tiles,
         setTiles,
@@ -214,6 +218,7 @@ export function useBentoGridState(initialTiles: Tile[] = []) {
         addTile,
         removeTile,
         updateTileSize,
+        updateTileContent,
         removeEmptyTiles: removeEmptyTilesAction,
         clearAllTiles,
         // Deprecated/Mapped for compatibility if needed, but RGL handles "move" implicitly

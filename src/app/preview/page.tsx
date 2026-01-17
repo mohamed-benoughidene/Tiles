@@ -33,7 +33,7 @@ export default function PreviewPage() {
                         onResize={() => { }}
                         onDelete={() => { }}
                         onReorder={() => { }} // No-op
-                        onUpdate={() => { }} // No-op
+                        onUpdateTile={() => { }} // No-op
                         readOnly={true}
                     />
                 </div>

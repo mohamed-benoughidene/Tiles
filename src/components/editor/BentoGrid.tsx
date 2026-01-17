@@ -23,6 +23,7 @@ interface BentoGridProps {
     onDelete: (id: string) => void;
     // Compatibility props
     onReorder: (oldIndex: number, newIndex: number) => void;
+    onUpdateTile?: (id: string, data: any) => void;
     readOnly?: boolean;
 }
 
@@ -34,6 +35,7 @@ export function BentoGrid({
     onSelectTile,
     onResize,
     onDelete,
+    onUpdateTile,
     readOnly
 }: BentoGridProps) {
     const visibleTiles = readOnly ? tiles.filter(tile => tile.type !== 'placeholder') : tiles;
@@ -100,6 +102,7 @@ export function BentoGrid({
                             onSelect={onSelectTile}
                             onResize={onResize}
                             onDelete={onDelete}
+                            onUpdate={onUpdateTile}
                             readOnly={readOnly}
                         />
                     </div>

@@ -11,7 +11,7 @@ interface ProductTile2x4Props {
 
 export function ProductTile2x4({ data, onUpdate, readOnly, layout = 'classic' }: ProductTile2x4Props) {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { title = 'Product Name', price = '$0.00', image, description = 'Product description goes here.' } = data;
+    const { title = '', price = '', image, description = '' } = data;
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -54,6 +54,7 @@ export function ProductTile2x4({ data, onUpdate, readOnly, layout = 'classic' }:
                                 disabled={readOnly}
                                 className="text-xl font-bold text-white truncate text-shadow-sm"
                                 inputClassName="text-xl font-bold bg-transparent text-white w-full"
+                                placeholder="PRODUCT"
                             />
                             <InlineEdit
                                 value={price}
@@ -61,6 +62,7 @@ export function ProductTile2x4({ data, onUpdate, readOnly, layout = 'classic' }:
                                 disabled={readOnly}
                                 className="text-lg font-medium text-zinc-200"
                                 inputClassName="text-lg font-medium bg-transparent text-zinc-200 w-full"
+                                placeholder="$0.00"
                             />
                         </div>
                         <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shrink-0 hover:scale-110 transition-transform shadow-lg">

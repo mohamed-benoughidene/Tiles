@@ -89,6 +89,7 @@ export function PriceMenuTile2x4({ data, onTitleChange, onIconClick, readOnly, l
                             !readOnly && "hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50"
                         )}
                         inputClassName="text-lg font-bold bg-transparent border-none p-0 focus-visible:ring-0 w-full"
+                        placeholder="TITLE"
                     />
                 </div>
             </div>

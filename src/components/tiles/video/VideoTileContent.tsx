@@ -287,7 +287,7 @@ const VideoPopOver = ({
                     setShowVideoPopOver(false);
                 }}
             ></div>
-            <div className="relative aspect-video max-w-7xl w-full mx-4 shadow-2xl z-10 bg-black">
+            <div className="relative w-full max-w-7xl mx-4 shadow-2xl z-10 bg-black aspect-video max-h-[85vh]">
                 <VideoPlayer style={{ width: "100%", height: "100%" }}>
                     <VideoPlayerContent
                         src={src}

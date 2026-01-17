@@ -68,6 +68,7 @@ export function LinkTile4x4({ title, subtext, image, onUpdate, readOnly, layout 
                         className="text-white text-[24px] font-bold leading-tight tracking-[-0.02em] text-shadow-sm"
                         inputClassName="text-[24px] font-bold text-white bg-transparent"
                         disabled={readOnly}
+                        placeholder="Title"
                     />
                     <InlineEdit
                         value={subtext}
@@ -75,6 +76,7 @@ export function LinkTile4x4({ title, subtext, image, onUpdate, readOnly, layout 
                         className="text-zinc-300 text-[15px] font-medium leading-normal mt-1"
                         inputClassName="text-[15px] font-medium text-zinc-300 bg-transparent"
                         disabled={readOnly}
+                        placeholder="Subtitle"
                     />
                 </div>
             </div>
@@ -91,6 +93,7 @@ export function LinkTile4x4({ title, subtext, image, onUpdate, readOnly, layout 
                     className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-white mb-2"
                     inputClassName="text-3xl font-bold text-center"
                     disabled={readOnly}
+                    placeholder="Title"
                 />
                 <InlineEdit
                     value={subtext}
@@ -98,6 +101,7 @@ export function LinkTile4x4({ title, subtext, image, onUpdate, readOnly, layout 
                     className="text-lg text-zinc-500 dark:text-zinc-400 font-medium"
                     inputClassName="text-lg font-medium text-center"
                     disabled={readOnly}
+                    placeholder="Subtitle"
                 />
             </div>
         );
@@ -120,6 +124,7 @@ export function LinkTile4x4({ title, subtext, image, onUpdate, readOnly, layout 
                     className="text-white text-[20px] font-bold leading-tight tracking-[-0.02em] line-clamp-1"
                     inputClassName="text-[20px] font-bold text-white bg-transparent"
                     disabled={readOnly}
+                    placeholder="Link Title"
                 />
                 <InlineEdit
                     value={subtext}
@@ -127,6 +132,7 @@ export function LinkTile4x4({ title, subtext, image, onUpdate, readOnly, layout 
                     className="text-zinc-400 text-[13px] font-medium leading-normal mt-0.5 line-clamp-1"
                     inputClassName="text-[13px] font-medium text-zinc-400 bg-transparent"
                     disabled={readOnly}
+                    placeholder="Link Description"
                 />
             </div>
         </div>

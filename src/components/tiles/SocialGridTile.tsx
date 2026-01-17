@@ -25,7 +25,7 @@ const DEFAULT_SOCIALS: SocialProfile[] = [
 
 export function SocialGridTile({ title: initialTitle, size, onResize, onRemove, data, readOnly }: SocialGridTileProps & { readOnly?: boolean }) {
     const [content, setContent] = React.useState({
-        title: data?.title || initialTitle || "Socials",
+        title: data?.title || initialTitle || "",
         socials: data?.socials || DEFAULT_SOCIALS,
         layout: data?.layout || 'grid', // grid, list, minimal
     });
@@ -112,16 +112,16 @@ export function SocialGridTile({ title: initialTitle, size, onResize, onRemove, 
                         sizeOptions={[
                             {
                                 id: '2x2',
-                                label: 'Small Wide',
+                                label: 'Square',
                                 icon: (
-                                    <svg width="18" height="12" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     </svg>
                                 )
                             },
                             {
                                 id: '4x2',
-                                label: 'Wide',
+                                label: 'Strip',
                                 icon: (
                                     <svg width="18" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>

@@ -21,11 +21,12 @@ interface BentoTileProps {
     onSelect: (id: string) => void;
     onResize?: (id: string, size: TileSize) => void;
     onDelete?: (id: string) => void;
+    onUpdate?: (id: string, data: any) => void;
     isOverlay?: boolean;
     readOnly?: boolean;
 }
 
-export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOverlay, readOnly }: BentoTileProps) {
+export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, onUpdate, isOverlay, readOnly }: BentoTileProps) {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const dragTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const isDraggingRef = useRef(false);
@@ -229,7 +230,7 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                 ) : tile.type === 'link' ? (
                     <div className="w-full h-full">
                         <LinkTile
-                            title={tile.content?.text || "New Link"}
+                            title={tile.content?.text || ""}
                             size={tile.size.name}
                             readOnly={readOnly}
                             onResize={(newSizeName) => {
@@ -252,6 +253,8 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 }
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            onUpdate={(newData) => onUpdate?.(tile.id, newData)}
+                            data={tile.content}
                         />
                     </div>
 
@@ -343,6 +346,10 @@ export function BentoTile({ tile, isSelected, onSelect, onResize, onDelete, isOv
                                 if (onResize) onResize(id, sizeObj);
                             }}
                             onRemove={() => setIsDeleteDialogOpen(true)}
+                            data={tile.content}
+                            onUpdate={(newData: any) => {
+                                if (onUpdate) onUpdate(tile.id, newData);
+                            }}
                             readOnly={readOnly}
                         />
                     </div>

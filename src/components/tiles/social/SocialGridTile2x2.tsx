@@ -119,6 +119,7 @@ export function SocialGridTile2x2({ data, onUpdate, onEdit, readOnly, layout = '
                         disabled={readOnly}
                         className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 w-full truncate"
                         inputClassName="text-[10px] font-semibold uppercase w-full"
+                        placeholder="SOCIALS"
                     />
                 </div>
             </div>

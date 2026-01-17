@@ -26,7 +26,7 @@ export function VideoTile({ id, title, url, size, onResize, onRemove, readOnly }
             {/* Resize/Action Menu (Bottom Center) - Visible on Hover */}
             {!readOnly && (
                 <div
-                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 z-30 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none group-hover:pointer-events-auto"
                     onPointerDown={(e) => e.stopPropagation()}
                     onMouseDown={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
@@ -39,19 +39,52 @@ export function VideoTile({ id, title, url, size, onResize, onRemove, readOnly }
                                 onResize(id, newSizeObj);
                             }
                         }}
-                        allowedSizes={[
-                            TILE_SIZES['2x2'].name,
-                            TILE_SIZES['4x4'].name,
-                            TILE_SIZES['6x4'].name
+                        sizeOptions={[
+                            {
+                                id: '2x2',
+                                label: 'Square',
+                                icon: (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            },
+                            {
+                                id: '2x4',
+                                label: 'Stack',
+                                icon: (
+                                    <svg width="14" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="1" y="2" width="12" height="20" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            },
+                            {
+                                id: '4x2',
+                                label: 'Strip',
+                                icon: (
+                                    <svg width="18" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            },
+                            {
+                                id: '4x4',
+                                label: 'Large',
+                                icon: (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                )
+                            }
                         ]}
                     />
                 </div>
             )}
             {/* Delete Button (Top Left) */}
             {!readOnly && (
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-3 -left-3 z-30">
+                <div className="absolute -top-3 -left-3 flex gap-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity scale-100 active:scale-95 duration-200">
                     <button
-                        className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 rounded-lg p-1.5 shadow-sm transition-colors cursor-pointer"
+                        className="w-8 h-8 rounded-lg bg-white dark:bg-zinc-950 text-zinc-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-center"
                         onClick={(e) => {
                             e.stopPropagation();
                             onRemove?.();
@@ -59,8 +92,9 @@ export function VideoTile({ id, title, url, size, onResize, onRemove, readOnly }
                         onPointerDown={e => e.stopPropagation()}
                         onMouseDown={e => e.stopPropagation()}
                         onTouchStart={e => e.stopPropagation()}
+                        title="Delete Tile"
                     >
-                        <span className="material-symbols-outlined text-lg block">delete</span>
+                        <span className="material-symbols-outlined text-[18px]">delete</span>
                     </button>
                 </div>
             )}

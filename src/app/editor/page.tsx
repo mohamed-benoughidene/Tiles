@@ -33,6 +33,7 @@ export default function EditorPage() {
                     onReorder={gridState.reorderTiles}
                     onResize={gridState.updateTileSize}
                     onDelete={gridState.removeTile}
+                    onUpdateTile={gridState.updateTileContent}
                     readOnly={isPreview}
                     onRemoveEmpty={gridState.removeEmptyTiles}
                     onClearAll={() => setIsClearModalOpen(true)}

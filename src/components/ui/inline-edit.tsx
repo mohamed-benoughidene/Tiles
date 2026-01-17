@@ -117,7 +117,7 @@ export function InlineEdit({
             )}
             aria-label={description || "Click to edit"}
         >
-            {value || <span className="text-zinc-400 italic">{placeholder}</span>}
+            {value || (!disabled && <span className="text-zinc-400 italic">{placeholder}</span>)}
         </span>
     );
 }

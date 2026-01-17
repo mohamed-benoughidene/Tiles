@@ -70,6 +70,7 @@ export function LinkTile2x2({ title, image, onUpdate, readOnly, layout = 'classi
                         className="text-lg font-bold text-white leading-tight text-center text-shadow-sm"
                         inputClassName="text-lg font-bold text-center text-white"
                         disabled={readOnly}
+                        placeholder="Title"
                     />
                 </div>
             </div>
@@ -86,6 +87,7 @@ export function LinkTile2x2({ title, image, onUpdate, readOnly, layout = 'classi
                     className="text-xl font-bold leading-tight text-zinc-900 dark:text-white text-center"
                     inputClassName="text-xl font-bold text-center"
                     disabled={readOnly}
+                    placeholder="Title"
                 />
             </div>
         );
@@ -111,6 +113,7 @@ export function LinkTile2x2({ title, image, onUpdate, readOnly, layout = 'classi
                     className="text-lg font-bold leading-tight tracking-tight text-zinc-900 dark:text-white antialiased text-center line-clamp-2"
                     inputClassName="text-lg font-bold text-center"
                     disabled={readOnly}
+                    placeholder="Link Title"
                 />
             </div>
             {/* Arrow Icon (Top Right Overly) */}

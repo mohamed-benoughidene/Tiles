@@ -14,6 +14,7 @@ interface LinkTileProps {
     onResize: (size: any) => void;
     onRemove: () => void;
     readOnly?: boolean;
+    onUpdate?: (data: any) => void;
     data?: {
         title?: string;
         description?: string;
@@ -23,12 +24,12 @@ interface LinkTileProps {
     };
 }
 
-export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOnly, data }: LinkTileProps) {
+export function LinkTile({ title: initialTitle, size, onResize, onRemove, onUpdate, readOnly, data }: LinkTileProps) {
     // Local state for the tile content
     const [content, setContent] = useState({
-        title: data?.title || initialTitle || "Link Tile",
-        description: data?.description || "Description goes here...",
-        subtext: data?.subtext || "Design Matters",
+        title: data?.title || initialTitle || "",
+        description: data?.description || "",
+        subtext: data?.subtext || "",
         image: data?.image || "https://lh3.googleusercontent.com/aida-public/AB6AXuBFAJalqElo677yC3IOxZHqHIaMZIRSr5-T6GODeiUwEyP54YefcG9Fz1MD_X1GapMitF7e_yAUo90BtUpnq0Vt1qVDVm0P1oMjMgNFAfFhfGx6pebRW-gY_q9uA2HvluYhwidx3Gl1LhI71UtuVTxEOdFmvcAM8PKI57IMCrrkcBxJC1XuNdO4d9BgFFA7n78roOZyg2TWqkyUaAQxG2kMmkZQfhqAdVQQCSTK27dhf9zVochEa5RvM8IteA4g4C5B2BFQPyXDUg",
         url: data?.url || "",
         layout: (data as any)?.layout || 'classic', // classic, cover, minimal
@@ -39,11 +40,17 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
 
     const handleUpdate = (updates: Partial<typeof content>) => {
         console.log('LinkTile: handleUpdate called with:', updates);
-        setContent(prev => {
-            const next = { ...prev, ...updates };
-            console.log('LinkTile: New content state:', next);
-            return next;
-        });
+
+        // Calculate new state based on current closure 'content'
+        // This avoids calling side-effects inside setState functional updater
+        const next = { ...content, ...updates };
+
+        setContent(next);
+        console.log('LinkTile: New content state:', next);
+
+        if (onUpdate) {
+            onUpdate(next);
+        }
     };
 
     // Determine which component to render
@@ -124,7 +131,7 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
                         sizeOptions={[
                             {
                                 id: '1x2',
-                                label: 'Tiny Square',
+                                label: 'Tiny',
                                 icon: (
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -133,16 +140,16 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
                             },
                             {
                                 id: '2x2',
-                                label: 'Small Wide',
+                                label: 'Square',
                                 icon: (
-                                    <svg width="18" height="12" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     </svg>
                                 )
                             },
                             {
                                 id: '2x4',
-                                label: 'Vertical Bar',
+                                label: 'Stack',
                                 icon: (
                                     <svg width="14" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="1" y="2" width="12" height="20" rx="2" ry="2"></rect>
@@ -151,7 +158,7 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
                             },
                             {
                                 id: '4x2',
-                                label: 'Wide',
+                                label: 'Strip',
                                 icon: (
                                     <svg width="18" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="2" y="1" width="20" height="12" rx="2" ry="2"></rect>
@@ -160,7 +167,7 @@ export function LinkTile({ title: initialTitle, size, onResize, onRemove, readOn
                             },
                             {
                                 id: '4x4',
-                                label: 'Large Square',
+                                label: 'Large',
                                 icon: (
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
